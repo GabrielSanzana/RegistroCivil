@@ -7,7 +7,8 @@ public class Persona
     private int estadoCivil; //0 soltero, 1 casado, 2 divorciado
     private String fechaNacimiento;
     private String defuncion;
-    
+    private HashMap <String, Persona> mapaPers;
+
     public Persona(String fNac, String rut, String nombre)
     {
         this.rut = rut;
@@ -16,14 +17,17 @@ public class Persona
         this.fechaNacimiento = fNac;
         this.defuncion = null;
     }
-        public Persona(String rut, String nombre, int estado, String fNac, String def)
-        {
-        this.rut = rut;
-        this.nombre = nombre;    
-        this.estadoCivil = estado;
-        this.fechaNacimiento = fNac;
-        this.defuncion = def;   
-        }
+    
+    public Persona(String rut, String nombre, int estado, String fNac, String def)
+    {
+      this.rut = rut;
+      this.nombre = nombre;    
+      this.estadoCivil = estado;
+      this.fechaNacimiento = fNac;
+      this.defuncion = def;   
+    }
+    
+  
      public String getRut()
      {
          return rut;
