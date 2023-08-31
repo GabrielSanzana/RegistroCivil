@@ -9,7 +9,16 @@ public class Persona
     private String defuncion;
     private HashMap <String, Persona> mapaPers;
 
-    public Persona(String fNac, String rut, String nombre)
+    public Persona(String rut, String nombre,String fNac)
+    {
+        this.rut = rut;
+        this.nombre = nombre;    
+        this.estadoCivil = 0;
+        this.fechaNacimiento = fNac;
+        this.defuncion = null;
+    }
+  
+    public Persona(String rut, String nombre,String fNac, int estado)
     {
         this.rut = rut;
         this.nombre = nombre;    
@@ -26,8 +35,6 @@ public class Persona
       this.fechaNacimiento = fNac;
       this.defuncion = def;   
     }
-    
-  
      public String getRut()
      {
          return rut;

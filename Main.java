@@ -5,7 +5,7 @@ import java.io.*;
 // en proyecto dejarlo en distintos archivos
  class Main {
     public static void main(String args[]) throws IOException {
-       ArrayList<Region> regiones = new ArrayList<>();
+       ArrayList <Region> regiones = new ArrayList<>();
        
     }
 }
