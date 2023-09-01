@@ -26,7 +26,20 @@ import java.io.*;
       regiones.add(new Region("Región de Los Ríos"));
       regiones.add(new Region("Región de Arica y Parinacota"));
       BufferedReader lector = new BufferedReader( new InputStreamReader(System.in));
-
+      Region region1 = regiones.get(0);
+      Region region7 = regiones.get(6);
+      Region region12 = regiones.get(11);
+        
+        // Crear personas de ejemplo
+        region1.agregarPersona("12345678-9", "Juan Perez", "01/01/1990", 0);
+        region1.agregarPersona("98765432-1", "Maria Sanchez", "15/06/1985", 1);
+        
+        region7.agregarPersona("56789012-3", "Pedro Ramirez", "20/03/1982", 1);
+        region7.agregarPersona("34567890-1", "Ana Torres", "10/11/1995", 0);
+        
+        region12.agregarPersona("65432109-8", "Carlos Mendoza", "05/09/1975", 2);
+        region12.agregarPersona("87654321-0", "Luisa Gutierrez", "30/07/2000", 0);
+        
       while(true)
       {
         System.out.println("====== MENU ======");

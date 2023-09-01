@@ -68,19 +68,17 @@ public class ConjuntoPersonas
   }
   
   public void mostrarPersonas() {
+    System.out.println(); 
     for (Persona persona : personas) 
-    {
-      
-        System.out.println();             
-        System.out.println("————————————————————————————————————————————————");
-        System.out.println("RUT: " + persona.getRut());
-        System.out.println("Nombre: " + persona.getNombre());
-        System.out.println("Estado Civil: " + persona.getEstadoCivil());
-        System.out.println("Fecha de Nacimiento: " + persona.getFNac());
-        System.out.println("Defunción: " + persona.getDef());
-        System.out.println("————————————————————————————————————————————————");
-        
+    {              
+      System.out.println("————————————————————————————————————————————————");
+      System.out.println("RUT: " + persona.getRut());
+      System.out.println("Nombre: " + persona.getNombre());
+      System.out.println("Estado Civil: " + persona.getEstadoCivil());
+      System.out.println("Fecha de Nacimiento: " + persona.getFNac());
+      System.out.println("Defunción: " + persona.getDef());   
     }
+    System.out.println("————————————————————————————————————————————————");
     System.out.println();
 }
 
