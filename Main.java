@@ -31,14 +31,14 @@ import java.io.*;
       Region region12 = regiones.get(11);
         
         // Crear personas de ejemplo
-        region1.agregarPersona("12345678-9", "Juan Perez", "01/01/1990", 0);
-        region1.agregarPersona("98765432-1", "Maria Sanchez", "15/06/1985", 1);
+        region1.agregarPersona("123456789", "Juan Perez", "01/01/1990", 0);
+        region1.agregarPersona("987654321", "Maria Sanchez", "15/06/1985", 1);
         
-        region7.agregarPersona("56789012-3", "Pedro Ramirez", "20/03/1982", 1);
-        region7.agregarPersona("34567890-1", "Ana Torres", "10/11/1995", 0);
+        region7.agregarPersona("567890123", "Pedro Ramirez", "20/03/1982", 1);
+        region7.agregarPersona("345678901", "Ana Torres", "10/11/1995", 0);
         
-        region12.agregarPersona("65432109-8", "Carlos Mendoza", "05/09/1975", 2);
-        region12.agregarPersona("87654321-0", "Luisa Gutierrez", "30/07/2000", 0);
+        region12.agregarPersona("654321098", "Carlos Mendoza", "05/09/1975", 2);
+        region12.agregarPersona("876543210", "Luisa Gutierrez", "30/07/2000", 0);
         
       while(true)
       {
