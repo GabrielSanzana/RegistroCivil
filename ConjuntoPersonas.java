@@ -10,8 +10,8 @@ public class ConjuntoPersonas
   public ConjuntoPersonas()
   {
     this.totalPersonas = 0;
-    HashMap<String, Persona> mapaPers = new HashMap<>();
-    ArrayList<Persona> personas = new ArrayList<>();
+    mapaPers = new HashMap<>();
+    personas = new ArrayList<>();
   }
 
   public Persona buscarPersona(String rut)
@@ -25,6 +25,8 @@ public class ConjuntoPersonas
     personas.remove(rut);
     mapaPers.remove(rut);
     totalPersonas --;
+    System.out.println("Se ha eliminado exitosamente a la persona.");
+    System.out.println();
   }
 
   //agregar cuando se tienen todos los campos de persona
@@ -34,6 +36,8 @@ public class ConjuntoPersonas
     mapaPers.put(rut,aux);
     personas.add(aux);
     this.totalPersonas++;
+    System.out.println("Se ha agregado exitosamente a " + nombre + ".");
+    System.out.println();
   }
   
   //agregar cuando nace una persona, solo tiene nombre, rut y fecha de nacimiento determinados
@@ -43,14 +47,42 @@ public class ConjuntoPersonas
     mapaPers.put(rut,aux);
     personas.add(aux);
     this.totalPersonas++;
+    System.out.println("Se ha agregado exitosamente a " + nombre + ".");
+    System.out.println();
   }
 
   //agregar cuando se sabe el rut, nombre, fecha de nacimiento y estado civil
   public void agregarPersona(String rut, String nombre, String fNac, int estado )
   {
-    Persona aux = new Persona(rut, nombre, fNac);
+    Persona aux = new Persona(rut, nombre, fNac, estado);
     mapaPers.put(rut,aux);
     personas.add(aux);
-    totalPersonas++;   
+    totalPersonas++;
+    System.out.println();
+    System.out.println("Se ha agregado exitosamente a " + nombre + ".");
+    System.out.println();
   }
+  public int getCant()
+  {
+    return totalPersonas;
+  }
+  
+  public void mostrarPersonas() {
+    for (Persona persona : personas) 
+    {
+      
+        System.out.println();             
+        System.out.println("————————————————————————————————————————————————");
+        System.out.println("RUT: " + persona.getRut());
+        System.out.println("Nombre: " + persona.getNombre());
+        System.out.println("Estado Civil: " + persona.getEstadoCivil());
+        System.out.println("Fecha de Nacimiento: " + persona.getFNac());
+        System.out.println("Defunción: " + persona.getDef());
+        System.out.println("————————————————————————————————————————————————");
+        
+    }
+    System.out.println();
+}
+
+  
 }

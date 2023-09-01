@@ -3,19 +3,62 @@ import java.io.*;
 public class Region 
 {
   private String nombreRegion;
-  private ConjuntoPersonas aldeanos;
+  private ConjuntoPersonas personas;
   
   public Region(String region)
   {
       this.nombreRegion = region;
-      aldeanos = new ConjuntoPersonas();
+      personas = new ConjuntoPersonas();
   }
-  public Region(String region, int cantPers)
+  
+  public int getCant()
   {
-    this.nombreRegion = region;
-    aldeanos = new aldeanos(cantPers);
+    return personas.getCant();
   }
-    
+  
+  public String getName()
+  {
+    return nombreRegion;
+  }
+
+  public void agregarPersona(String rut, String nombre, String fNac, int estado)
+  {
+    personas.agregarPersona(rut, nombre, fNac, estado);
+  }
+  
+  public void agregarPersona(String rut, String nombre, String fNac)
+  {
+    personas.agregarPersona(rut, nombre, fNac);
+  }
+
+  public void agregarPersona(String rut, String nombre, String fNac, int estado, String def)
+  {
+    personas.agregarPersona(rut, nombre, estado, fNac, def);
+  }
+
+  public void eliminarPersona(String rut)
+  {
+    personas.eliminarPersona(rut);
+  }
+
+  public void mostrarDatosPersona(String rut)
+  {
+    Persona auxiliar = personas.buscarPersona(rut);
+    if(auxiliar == null)
+    {
+      System.out.println("No se encontró la persona");
+      return;
+    }
+    auxiliar.getNombre();
+    auxiliar.getFNac();
+    auxiliar.getEstadoCivil();
+    auxiliar.getDef();
+  }
+
+  public void mostrarDatosPoblacion()
+  {
+    personas.mostrarPersonas();
+  }
   /*
     public void agregarNPersonas(int n) throws IOException
     {
@@ -38,13 +81,14 @@ public class Region
     
   }
   public void registroDefuncion(String rut){
-    //pasaporte, acta de nacimiento, acta de defuncion, certificados, etc
   }
   public void generarActas(String rut){
-    
+    //pasaporte, acta de nacimiento, acta de defuncion, certificados, etc
+
   }
   public void divorcios(String rut1, String rut2)(){
-    
+  
   }
+  public void cambiarEstadoCivil(String rut)
   */
 }
