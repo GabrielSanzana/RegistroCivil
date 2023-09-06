@@ -1,131 +1,79 @@
 import java.util.*;
 import java.io.*;
 
-//la base sera la persona, en ella tendra distintos atributos como rut, nombre, estado civil, fecha de nacimiento y defuncion.
-// en proyecto dejarlo en distintos archivos
- class Main {
+class Main {
     public static void main(String args[]) throws IOException {
-      ArrayList <Region> regiones = new ArrayList<>();
-      int opcion;
-      Region regionSeleccionada;
-      String rut, nombre, fNac;
-      regiones.add(new Region("Región de Tarapacá"));
-      regiones.add(new Region("Región de Antofagasta"));
-      regiones.add(new Region("Región de Atacama"));
-      regiones.add(new Region("Región de Coquimbo"));
-      regiones.add(new Region("Región de Valparaíso"));
-      regiones.add(new Region("Región de O'Higgins"));
-      regiones.add(new Region("Región Metropolitana de Santiago"));
-      regiones.add(new Region("Región del Maule"));
-      regiones.add(new Region("Región de Ñuble"));
-      regiones.add(new Region("Región de Biobío"));
-      regiones.add(new Region("Región de La Araucanía"));
-      regiones.add(new Region("Región de Los Lagos"));
-      regiones.add(new Region("Región de Aysén del General Carlos Ibáñez del Campo"));
-      regiones.add(new Region("Región de Magallanes y de la Antártica Chilena"));
-      regiones.add(new Region("Región de Los Ríos"));
-      regiones.add(new Region("Región de Arica y Parinacota"));
-      BufferedReader lector = new BufferedReader( new InputStreamReader(System.in));
-      Region region1 = regiones.get(0);
-      Region region7 = regiones.get(6);
-      Region region12 = regiones.get(11);
+        ConjuntoRegiones conjuntoRegiones = new ConjuntoRegiones();
+        int opcion;
+        String rut, nombre, fNac;
         
-        // Crear personas de ejemplo
-        region1.agregarPersona("123456789", "Juan Perez", "01/01/1990", 0);
-        region1.agregarPersona("987654321", "Maria Sanchez", "15/06/1985", 1);
+        conjuntoRegiones.agregarRegion("Región de Tarapacá");
+        conjuntoRegiones.agregarRegion("Región de Antofagasta");
+        conjuntoRegiones.agregarRegion("Región de Atacama");
+        conjuntoRegiones.agregarRegion("Región de Coquimbo");
+        conjuntoRegiones.agregarRegion("Región de Valparaíso");
+        conjuntoRegiones.agregarRegion("Región de O'Higgins");
+        conjuntoRegiones.agregarRegion("Región Metropolitana de Santiago");
+        conjuntoRegiones.agregarRegion("Región del Maule");
+        conjuntoRegiones.agregarRegion("Región de Ñuble");
+        conjuntoRegiones.agregarRegion("Región de Biobío");
+        conjuntoRegiones.agregarRegion("Región de La Araucanía");
+        conjuntoRegiones.agregarRegion("Región de Los Lagos");
+        conjuntoRegiones.agregarRegion("Región de Aysén del General Carlos Ibáñez del Campo");
+        conjuntoRegiones.agregarRegion("Región de Magallanes y de la Antártica Chilena");
+        conjuntoRegiones.agregarRegion("Región de Los Ríos");
+        conjuntoRegiones.agregarRegion("Región de Arica y Parinacota");
+        conjuntoRegiones.agregarRegion("Región de Ñuble");
         
-        region7.agregarPersona("567890123", "Pedro Ramirez", "20/03/1982", 1);
-        region7.agregarPersona("345678901", "Ana Torres", "10/11/1995", 0);
+        BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
+        String regionSeleccionadaNombre;
+        Region regionSeleccionada;
         
-        region12.agregarPersona("654321098", "Carlos Mendoza", "05/09/1975", 2);
-        region12.agregarPersona("876543210", "Luisa Gutierrez", "30/07/2000", 0);
-        
-      while(true)
-      {
-        System.out.println("====== MENU ======");
-        System.out.println("1) Agregar persona.");
-        System.out.println("2) Mostrar listado de personas.");
-        System.out.println("3) Salir.");
-        opcion = Integer.parseInt(lector.readLine());
-        switch(opcion)       
-        {
-          case 1: 
-            System.out.println();
-            System.out.println("Selecciona la región:");
-            System.out.println("1. Región de Tarapacá");
-            System.out.println("2. Región de Antofagasta");
-            System.out.println("3. Región de Atacama");
-            System.out.println("4. Región de Coquimbo");
-            System.out.println("5. Región de Valparaíso");
-            System.out.println("6. Región de O'Higgins");
-            System.out.println("7. Región Metropolitana de Santiago");
-            System.out.println("8. Región del Maule");
-            System.out.println("9. Región de Biobío");
-            System.out.println("10. Región de La Araucanía");
-            System.out.println("11. Región de Los Lagos");
-            System.out.println("12. Región de Aysén del General Carlos Ibáñez del Campo");
-            System.out.println("13. Región de Magallanes y de la Antártica Chilena");
-            System.out.println("14. Región de Los Ríos");
-            System.out.println("15. Región de Arica y Parinacota");
-            System.out.println("16. Región de Ñuble");
+        while (true) {
+            System.out.println("====== MENU ======");
+            System.out.println("1) Agregar persona.");
+            System.out.println("2) Mostrar listado de personas.");
+            System.out.println("3) Salir.");
             opcion = Integer.parseInt(lector.readLine());
-            if(opcion<=16 && opcion>=1)
-            {
-              System.out.println();
-              System.out.println("Ingrese los siguientes datos:");
-              System.out.print("RUT: ");
-              rut = lector.readLine();
-              System.out.print("Nombre: ");
-              nombre = lector.readLine();
-              System.out.print("Fecha de Nacimiento: ");
-              fNac = lector.readLine();
-              regionSeleccionada = regiones.get(opcion - 1);
-              regionSeleccionada.agregarPersona(rut, nombre, fNac);
+            switch (opcion) {
+                case 1:
+                    System.out.println();
+                    System.out.println("Ingrese el nombre de la región:");
+                    regionSeleccionadaNombre = lector.readLine();
+                    regionSeleccionada = conjuntoRegiones.buscarRegion(regionSeleccionadaNombre); // Utiliza el nombre aquí
+                    if (regionSeleccionada != null) {
+                        System.out.println();
+                        System.out.println("Ingrese los siguientes datos:");
+                        System.out.print("RUT: ");
+                        rut = lector.readLine();
+                        System.out.print("Nombre: ");
+                        nombre = lector.readLine();
+                        System.out.print("Fecha de Nacimiento: ");
+                        fNac = lector.readLine();
+                        regionSeleccionada.agregarPersona(rut, nombre, fNac);
+                    } else {
+                        System.out.println("Región no encontrada. Volviendo al menú.");
+                        System.out.println();
+                    }
+                    break;
+                case 2:
+                    System.out.println();
+                    System.out.println("Ingrese el nombre de la región:");
+                    regionSeleccionadaNombre = lector.readLine();
+                    regionSeleccionada = conjuntoRegiones.buscarRegion(regionSeleccionadaNombre); // Utiliza el nombre aquí
+                    if (regionSeleccionada != null) {
+                        regionSeleccionada.mostrarDatosPoblacion();
+                    } else {
+                        System.out.println("Región no encontrada. Volviendo al menú.");
+                        System.out.println();
+                    }
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Opción invalida.");
+                    break;
             }
-            else
-            {
-              System.out.println("Selección de región inválida. Volviendo al menú.");
-              System.out.println();
-            }
-            break;
-          case 2:
-            System.out.println();
-            System.out.println("Selecciona la región:");
-            System.out.println("1. Región de Tarapacá");
-            System.out.println("2. Región de Antofagasta");
-            System.out.println("3. Región de Atacama");
-            System.out.println("4. Región de Coquimbo");
-            System.out.println("5. Región de Valparaíso");
-            System.out.println("6. Región de O'Higgins");
-            System.out.println("7. Región Metropolitana de Santiago");
-            System.out.println("8. Región del Maule");
-            System.out.println("9. Región de Biobío");
-            System.out.println("10. Región de La Araucanía");
-            System.out.println("11. Región de Los Lagos");
-            System.out.println("12. Región de Aysén del General Carlos Ibáñez del Campo");
-            System.out.println("13. Región de Magallanes y de la Antártica Chilena");
-            System.out.println("14. Región de Los Ríos");
-            System.out.println("15. Región de Arica y Parinacota");
-            System.out.println("16. Región de Ñuble");
-            opcion = Integer.parseInt(lector.readLine());
-            if(opcion<=16 && opcion>=1)
-            {
-              regionSeleccionada = regiones.get(opcion - 1);
-              regionSeleccionada.mostrarDatosPoblacion();
-            }
-            else
-            {
-              System.out.println("Selección de región inválida. Volviendo al menú.");
-              System.out.println();
-            }
-            break;
-
-          case 3:
-            return;
-          default: 
-            System.out.println("Opción invalida.");
-            break;
         }
-      }
     }
 }

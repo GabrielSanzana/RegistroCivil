@@ -59,6 +59,8 @@ public class Region
   {
     personas.mostrarPersonas();
   }
+
+  
   /*
     public void agregarNPersonas(int n) throws IOException
     {
@@ -90,5 +92,6 @@ public class Region
   
   }
   public void cambiarEstadoCivil(String rut)
+  AGREGAR CARGAR CSV PA CARGAR PERSONAS 
   */
 }

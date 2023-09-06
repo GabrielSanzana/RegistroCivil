@@ -7,7 +7,6 @@ public class Persona
   private int estadoCivil; //0 soltero, 1 casado, 2 divorciado, 3 viudo, 4 separado 
   private String fechaNacimiento;
   private String defuncion;
-  private HashMap <String, Persona> mapaPers;
   
   public Persona(String rut, String nombre,String fNac)
   {

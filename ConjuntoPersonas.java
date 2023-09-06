@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-
+//Falta arreglar en agregar persona, que no se pueda agregar si ya existe alguien con el mismo rut.
 public class ConjuntoPersonas
 {
   private int totalPersonas;
