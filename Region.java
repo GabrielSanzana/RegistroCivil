@@ -60,7 +60,25 @@ public class Region
     personas.mostrarPersonas();
   }
 
-  
+  public void cargarPersonasDesdeCSV(String filePath) throws IOException {
+      BufferedReader br = new BufferedReader(new FileReader(filePath));
+      String line;
+      while ((line = br.readLine()) != null) {
+          String[] parts = line.split(",");
+          if (parts.length == 5) {
+              String rut = parts[0];
+              String nombre = parts[1];
+              int estadoCivil = Integer.parseInt(parts[2]);
+              String fechaNacimiento = parts[3];
+              String defuncion = parts[4];
+              // Llama al método agregarPersona para agregar la persona al conjunto
+              personas.agregarPersona(rut, nombre, estadoCivil, fechaNacimiento, defuncion);
+          } else {
+              System.err.println("Error: línea CSV mal formada: " + line);
+          }
+      }
+      br.close();
+  }
   /*
     public void agregarNPersonas(int n) throws IOException
     {
@@ -84,14 +102,16 @@ public class Region
   }
   public void registroDefuncion(String rut){
   }
-  public void generarActas(String rut){
-    //pasaporte, acta de nacimiento, acta de defuncion, certificados, etc
 
-  }
   public void divorcios(String rut1, String rut2)(){
   
   }
   public void cambiarEstadoCivil(String rut)
   AGREGAR CARGAR CSV PA CARGAR PERSONAS 
+
+    public void generarActas(String rut){
+    //pasaporte, acta de nacimiento, acta de defuncion, certificados, etc
+
+  }
   */
 }

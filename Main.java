@@ -23,8 +23,8 @@ class Main {
         conjuntoRegiones.agregarRegion("Región de Magallanes y de la Antártica Chilena");
         conjuntoRegiones.agregarRegion("Región de Los Ríos");
         conjuntoRegiones.agregarRegion("Región de Arica y Parinacota");
-        conjuntoRegiones.agregarRegion("Región de Ñuble");
-        
+        Region test = conjuntoRegiones.buscarRegion("Región de Los Lagos");
+        test.cargarPersonasDesdeCSV("test.csv");
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         String regionSeleccionadaNombre;
         Region regionSeleccionada;
