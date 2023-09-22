@@ -66,17 +66,21 @@ public class Persona
   }
 
   public void cambiarEstadoCivil(String nuevoEstadoCivil) {
-    if (nuevoEstadoCivil.equalsIgnoreCase("soltero")) {
+    if (nuevoEstadoCivil.equalsIgnoreCase("soltero/a")) {
         this.estadoCivil = 0;
-    } else if (nuevoEstadoCivil.equalsIgnoreCase("casado")) {
+    } else if (nuevoEstadoCivil.equalsIgnoreCase("casado/a")) {
         this.estadoCivil = 1;
-    } else if (nuevoEstadoCivil.equalsIgnoreCase("divorciado")) {
+    } else if (nuevoEstadoCivil.equalsIgnoreCase("divorciado/a")) {
         this.estadoCivil = 2;
-    } else if (nuevoEstadoCivil.equalsIgnoreCase("viudo")) {
+    } else if (nuevoEstadoCivil.equalsIgnoreCase("viudo/a")) {
         this.estadoCivil = 3;
-    } else if (nuevoEstadoCivil.equalsIgnoreCase("separado")) {
+    } else if (nuevoEstadoCivil.equalsIgnoreCase("separado/a")) {
         this.estadoCivil = 4;
     }
+  }
+  public void registrarDefuncion(String fecha)
+  {
+    defuncion = fecha;
   }
 
   public void cambiarNombre(String nombreNuevo)

@@ -14,6 +14,11 @@ public class ConjuntoPersonas
     personas = new ArrayList<>();
   }
 
+  public ArrayList<Persona> getPersonas()
+  {
+    return personas;
+  }
+  
   public Persona buscarPersona(String rut)
   {
     return mapaPers.get(rut);
@@ -81,6 +86,4 @@ public class ConjuntoPersonas
     System.out.println("————————————————————————————————————————————————");
     System.out.println();
 }
-
-  
 }

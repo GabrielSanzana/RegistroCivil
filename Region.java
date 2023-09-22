@@ -79,34 +79,70 @@ public class Region
       }
       br.close();
   }
-  /*
-    public void agregarNPersonas(int n) throws IOException
-    {
-      for(int i = 0; i < n; i++)
-        {
-          System.out.println("Ingrese el rut, nombre, estado civil, fecha de nacimineto y defunción (vacio si no lo tiene) de la persona a ingresar, separando por saltos de linea en cada caso");
-          BufferedReader lector = new BufferedReader( new InputStreamReader( System.in ) );
-          String rut = lector.readLine();
-          String nombre = lector.readLine();
-          int estado  = Integer.parseInt(lector.readLine());
-          String fNac = lector.readLine();
-          String def =  lector.readLine();
-          agregarPersona(rut, nombre, estado, fNac, def);
-        }
-    }
-  public void registroNacimiento(){
-    
-  }
   public void registroMatrimonio(String rut1, String rut2){
-    
+    (personas.buscarPersona(rut1)).cambiarEstadoCivil(1);
+    (personas.buscarPersona(rut2)).cambiarEstadoCivil(1);
   }
-  public void registroDefuncion(String rut){
+  public void registroDefuncion(String rut, String fecha){
+    (personas.buscarPersona(rut)).registrarDefuncion(fecha);
+    //pensar en poner viuda a la pareja pero eso implica llenar mas campos
   }
 
-  public void divorcios(String rut1, String rut2)(){
-  
+  public void divorciar(String rut1, String rut2){
+    (personas.buscarPersona(rut1)).cambiarEstadoCivil(2);
+    (personas.buscarPersona(rut2)).cambiarEstadoCivil(2);
   }
-  public void cambiarEstadoCivil(String rut)
+    
+  public void cambiarEstadoCivil(String rut, String nuevoEstado)
+  {
+    (personas.buscarPersona(rut)).cambiarEstadoCivil(nuevoEstado);
+  }
+  
+  public void cambiarEstadoCivil(String rut, int nuevoEstado)
+  {
+    (personas.buscarPersona(rut)).cambiarEstadoCivil(nuevoEstado);
+  }
+  
+  public void exportarPersonasACSV(String filePath) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+
+            // Obtener la lista de personas utilizando el método getPersonas()
+            ArrayList<Persona> listaPersonas = personas.getPersonas();
+
+            for (int i = 0; i < listaPersonas.size(); i++) {
+                // Construye una línea CSV con los datos de la persona
+                Persona persona = listaPersonas.get(i);
+                String lineaCSV = String.format(
+                    "%s,%s,%s,%s,%s",
+                    persona.getRut(),
+                    persona.getNombre(),
+                    "" + persona.getEstadoCivil(),
+                    persona.getFNac(),
+                    persona.getDef()
+                );
+
+                // Escribe la línea CSV en el archivo
+                bw.write(lineaCSV);
+                bw.newLine();
+            }
+
+            // Cierra el BufferedWriter para liberar recursos
+            bw.close();
+            System.out.println("Exportación a CSV completada con éxito.");
+        } catch (IOException e) {
+            System.out.println("Error al crear o escribir en el archivo CSV.");
+            e.printStackTrace();
+        }
+    }
+  /*
+    
+  public void registroNacimiento(){
+    GENERAR UN RUT O SIMPLEMENTE QUE YA SEA EXISTENTE? SI YA EXISTE EL RUT
+    DA LO MISMO, LO METEMOS A AGREGAR PERSONA Y XAO
+  }
+  
+  
   AGREGAR CARGAR CSV PA CARGAR PERSONAS 
 
     public void generarActas(String rut){

@@ -25,6 +25,7 @@ class Main {
         conjuntoRegiones.agregarRegion("Región de Arica y Parinacota");
         Region test = conjuntoRegiones.buscarRegion("Región de Los Lagos");
         test.cargarPersonasDesdeCSV("test.csv");
+        test.exportarPersonasACSV("omero.csv");
         BufferedReader lector = new BufferedReader(new InputStreamReader(System.in));
         String regionSeleccionadaNombre;
         Region regionSeleccionada;
