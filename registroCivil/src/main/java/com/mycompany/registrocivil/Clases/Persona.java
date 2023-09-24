@@ -1,3 +1,5 @@
+package com.mycompany.registrocivil.Clases;
+
 import java.util.*;
 import java.io.*;
 public class Persona

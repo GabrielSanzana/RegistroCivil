@@ -1,3 +1,6 @@
+package com.mycompany.registrocivil.Clases;
+
+import com.mycompany.registrocivil.Clases.ConjuntoPersonas;
 import java.util.*;
 import java.io.*;
 public class Region 
@@ -21,20 +24,11 @@ public class Region
     return nombreRegion;
   }
 
-  public void agregarPersona(String rut, String nombre, String fNac, int estado)
+  public boolean agregarPersona(String rut, String nombre, int estado,String fNac, String defuncion)
   {
-    personas.agregarPersona(rut, nombre, fNac, estado);
-  }
-  
-  public void agregarPersona(String rut, String nombre, String fNac)
-  {
-    personas.agregarPersona(rut, nombre, fNac);
+    return personas.agregarPersona(rut, nombre, estado,fNac, defuncion);
   }
 
-  public void agregarPersona(String rut, String nombre, String fNac, int estado, String def)
-  {
-    personas.agregarPersona(rut, nombre, estado, fNac, def);
-  }
 
   public void eliminarPersona(String rut)
   {
@@ -79,6 +73,7 @@ public class Region
       }
       br.close();
   }
+  
   public void registroMatrimonio(String rut1, String rut2){
     (personas.buscarPersona(rut1)).cambiarEstadoCivil(1);
     (personas.buscarPersona(rut2)).cambiarEstadoCivil(1);
@@ -102,39 +97,8 @@ public class Region
   {
     (personas.buscarPersona(rut)).cambiarEstadoCivil(nuevoEstado);
   }
+
   
-  public void exportarPersonasACSV(String filePath) {
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-
-            // Obtener la lista de personas utilizando el método getPersonas()
-            ArrayList<Persona> listaPersonas = personas.getPersonas();
-
-            for (int i = 0; i < listaPersonas.size(); i++) {
-                // Construye una línea CSV con los datos de la persona
-                Persona persona = listaPersonas.get(i);
-                String lineaCSV = String.format(
-                    "%s,%s,%s,%s,%s",
-                    persona.getRut(),
-                    persona.getNombre(),
-                    "" + persona.getEstadoCivil(),
-                    persona.getFNac(),
-                    persona.getDef()
-                );
-
-                // Escribe la línea CSV en el archivo
-                bw.write(lineaCSV);
-                bw.newLine();
-            }
-
-            // Cierra el BufferedWriter para liberar recursos
-            bw.close();
-            System.out.println("Exportación a CSV completada con éxito.");
-        } catch (IOException e) {
-            System.out.println("Error al crear o escribir en el archivo CSV.");
-            e.printStackTrace();
-        }
-    }
   /*
     
   public void registroNacimiento(){

@@ -1,3 +1,5 @@
+package com.mycompany.registrocivil.Clases;
+
 import java.util.*;
 import java.io.*;
 //Falta arreglar en agregar persona, que no se pueda agregar si ya existe alguien con el mismo rut.
@@ -14,11 +16,6 @@ public class ConjuntoPersonas
     personas = new ArrayList<>();
   }
 
-  public ArrayList<Persona> getPersonas()
-  {
-    return personas;
-  }
-  
   public Persona buscarPersona(String rut)
   {
     return mapaPers.get(rut);
@@ -27,7 +24,7 @@ public class ConjuntoPersonas
   public void eliminarPersona(String rut)
   {
     Persona aux = mapaPers.get(rut);
-    personas.remove(rut);
+    personas.remove(aux);
     mapaPers.remove(rut);
     totalPersonas --;
     System.out.println("Se ha eliminado exitosamente a la persona.");
@@ -35,14 +32,21 @@ public class ConjuntoPersonas
   }
 
   //agregar cuando se tienen todos los campos de persona
-  public void agregarPersona(String rut, String nombre, int estado, String fNac, String def) 
+  public boolean agregarPersona(String rut, String nombre, int estado, String fNac, String def) 
   {
+    if(mapaPers.containsKey(rut))
+        return false;
+    if(def == null){
+        if(estado != 0)
+            agregarPersona(rut,nombre,fNac,estado);
+        else agregarPersona(rut,nombre,fNac);
+        return true;
+    }
     Persona aux = new Persona(rut,  nombre,  estado,  fNac,  def);
     mapaPers.put(rut,aux);
     personas.add(aux);
     this.totalPersonas++;
-    System.out.println("Se ha agregado exitosamente a " + nombre + ".");
-    System.out.println();
+    return true;
   }
   
   //agregar cuando nace una persona, solo tiene nombre, rut y fecha de nacimiento determinados
@@ -52,8 +56,6 @@ public class ConjuntoPersonas
     mapaPers.put(rut,aux);
     personas.add(aux);
     this.totalPersonas++;
-    System.out.println("Se ha agregado exitosamente a " + nombre + ".");
-    System.out.println();
   }
 
   //agregar cuando se sabe el rut, nombre, fecha de nacimiento y estado civil
@@ -63,9 +65,6 @@ public class ConjuntoPersonas
     mapaPers.put(rut,aux);
     personas.add(aux);
     totalPersonas++;
-    System.out.println();
-    System.out.println("Se ha agregado exitosamente a " + nombre + ".");
-    System.out.println();
   }
   public int getCant()
   {
@@ -86,4 +85,6 @@ public class ConjuntoPersonas
     System.out.println("————————————————————————————————————————————————");
     System.out.println();
 }
+
+  
 }

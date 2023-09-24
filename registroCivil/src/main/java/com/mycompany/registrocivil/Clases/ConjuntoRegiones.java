@@ -1,3 +1,5 @@
+package com.mycompany.registrocivil.Clases;
+
 import java.util.*;
 import java.io.*;
 public class ConjuntoRegiones {
@@ -10,7 +12,22 @@ public class ConjuntoRegiones {
         regiones = new ArrayList<>();
         mapaRegiones = new HashMap<>();
     }
-
+    
+    public String[] obtenerNombresRegiones() {
+     String[] nombres = new String[totalRegiones];
+     for (int i = 0; i < totalRegiones; i++) {
+        nombres[i] = regiones.get(i).getName();
+    }
+    return nombres;
+    }
+    
+    public Region buscarRegion(String n)
+    {
+        if(mapaRegiones.containsKey(n) == false)
+            return null;
+        return mapaRegiones.get(n);
+    }
+    
     public void agregarRegion(String nombreRegion) {
         Region nuevaRegion = new Region(nombreRegion);
         regiones.add(nuevaRegion);
@@ -19,37 +36,15 @@ public class ConjuntoRegiones {
         System.out.println("Se ha agregado exitosamente la región: " + nombreRegion + ".");
     }
 
-    public void agregarPersona(String nombreRegion, String rut, String nombre, String fNac, int estado) {
-        Region region = buscarRegion(nombreRegion);
-        if (region == null) {
-            System.out.println("No existe la región buscada: " + nombreRegion);
-            return;
-        }
-        region.agregarPersona(rut, nombre, fNac, estado);
-    }
-
-    public void agregarPersona(String nombreRegion, String rut, String nombre, String fNac) {
-        Region region = buscarRegion(nombreRegion);
-        if (region == null) {
-            System.out.println("No existe la región buscada: " + nombreRegion);
-            return;
-        }
-        region.agregarPersona(rut, nombre, fNac);
-    }
-
     public void agregarPersona(String nombreRegion, String rut, String nombre, String fNac, int estado, String def) {
         Region region = buscarRegion(nombreRegion);
         if (region == null) {
             System.out.println("No existe la región buscada: " + nombreRegion);
             return;
         }
-        region.agregarPersona(rut, nombre, fNac, estado, def);
+        region.agregarPersona(rut, nombre, estado,fNac, def);
     }
-
-    public Region buscarRegion(String nombreRegion) {
-        return mapaRegiones.get(nombreRegion);
-    }
-
+    
     public int getTotalRegiones() {
         return totalRegiones;
     }
