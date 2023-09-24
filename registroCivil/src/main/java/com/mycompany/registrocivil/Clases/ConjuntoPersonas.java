@@ -15,13 +15,21 @@ public class ConjuntoPersonas
     mapaPers = new HashMap<>();
     personas = new ArrayList<>();
   }
-
+  public ArrayList<Persona> getPersonas()
+  {
+    return personas;
+  }
+  
+  
+  
   public Persona buscarPersona(String rut)
   {
-    return mapaPers.get(rut);
+    if(mapaPers.containsKey(rut))
+        return mapaPers.get(rut);
+    return null;
   }
     
-  public void eliminarPersona(String rut)
+  public Persona eliminarPersona(String rut)
   {
     Persona aux = mapaPers.get(rut);
     personas.remove(aux);
@@ -29,6 +37,7 @@ public class ConjuntoPersonas
     totalPersonas --;
     System.out.println("Se ha eliminado exitosamente a la persona.");
     System.out.println();
+    return aux;
   }
 
   //agregar cuando se tienen todos los campos de persona
@@ -84,7 +93,7 @@ public class ConjuntoPersonas
     }
     System.out.println("————————————————————————————————————————————————");
     System.out.println();
+  }
 }
 
   
-}

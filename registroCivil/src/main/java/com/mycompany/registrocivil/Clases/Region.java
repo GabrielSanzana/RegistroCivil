@@ -30,9 +30,9 @@ public class Region
   }
 
 
-  public void eliminarPersona(String rut)
+  public Persona eliminarPersona(String rut)
   {
-    personas.eliminarPersona(rut);
+    return personas.eliminarPersona(rut);
   }
 
   public void mostrarDatosPersona(String rut)
@@ -74,6 +74,38 @@ public class Region
       br.close();
   }
   
+  public void exportarPersonasACSV(String filePath) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+
+            // Obtener la lista de personas utilizando el método getPersonas()
+            ArrayList<Persona> listaPersonas = personas.getPersonas();
+
+            for (int i = 0; i < listaPersonas.size(); i++) {
+                // Construye una línea CSV con los datos de la persona
+                Persona persona = listaPersonas.get(i);
+                String lineaCSV = String.format(
+                    "%s,%s,%s,%s,%s",
+                    persona.getRut(),
+                    persona.getNombre(),
+                    "" + persona.getEstadoCivil(),
+                    persona.getFNac(),
+                    persona.getDef()
+                );
+
+                // Escribe la línea CSV en el archivo
+                bw.write(lineaCSV);
+                bw.newLine();
+            }
+
+            // Cierra el BufferedWriter para liberar recursos
+            bw.close();
+            System.out.println("Exportación a CSV completada con éxito.");
+        } catch (IOException e) {
+            System.out.println("Error al crear o escribir en el archivo CSV.");
+        }
+    }
+  
   public void registroMatrimonio(String rut1, String rut2){
     (personas.buscarPersona(rut1)).cambiarEstadoCivil(1);
     (personas.buscarPersona(rut2)).cambiarEstadoCivil(1);
@@ -98,6 +130,10 @@ public class Region
     (personas.buscarPersona(rut)).cambiarEstadoCivil(nuevoEstado);
   }
 
+  public Persona obtenerPersona(String r){
+      return personas.buscarPersona(r);
+  }
+  
   
   /*
     
