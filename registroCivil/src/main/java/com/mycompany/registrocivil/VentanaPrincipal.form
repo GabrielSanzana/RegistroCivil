@@ -109,7 +109,7 @@
                                   <Component id="lblAgregarPersona" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblMostrarListado" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblInicio" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEstado" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblEditar" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblEliminar" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -146,7 +146,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="EstadoCivil" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="lblEstado" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="lblEditar" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="369" max="32767" attributes="0"/>
                   </Group>
@@ -251,7 +251,7 @@
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EstadoCivilMousePressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblEstado">
+            <Component class="javax.swing.JLabel" name="lblEditar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="18" style="0"/>
@@ -260,10 +260,10 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Cambiar E. Civil"/>
+                <Property name="text" type="java.lang.String" value="Editar Persona"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEstadoMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEditarMousePressed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblEliminar">

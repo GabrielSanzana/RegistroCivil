@@ -18,7 +18,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(ConjuntoRegiones conjunto){
         this.conjuntoRegiones = conjunto;
         initComponents();
-        
+        Inicio.setEnabled(false);
+        lblInicio.setEnabled(false);
     }
 
     /**
@@ -41,7 +42,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Inicio = new javax.swing.JLabel();
         Listar = new javax.swing.JLabel();
         EstadoCivil = new javax.swing.JLabel();
-        lblEstado = new javax.swing.JLabel();
+        lblEditar = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
         Eliminar = new javax.swing.JLabel();
         PanelGobierno = new javax.swing.JPanel();
@@ -138,13 +139,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        lblEstado.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lblEstado.setForeground(new java.awt.Color(255, 255, 255));
-        lblEstado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblEstado.setText("Cambiar E. Civil");
-        lblEstado.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEditar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblEditar.setForeground(new java.awt.Color(255, 255, 255));
+        lblEditar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEditar.setText("Editar Persona");
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblEstadoMousePressed(evt);
+                lblEditarMousePressed(evt);
             }
         });
 
@@ -187,7 +188,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                             .addComponent(lblAgregarPersona)
                             .addComponent(lblMostrarListado)
                             .addComponent(lblInicio)
-                            .addComponent(lblEstado)
+                            .addComponent(lblEditar)
                             .addComponent(lblEliminar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -215,7 +216,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(EstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(369, Short.MAX_VALUE))
         );
 
@@ -298,7 +299,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void IconoMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoMenuMousePressed
         int velocidadAnimacion = 4; // Velocidad de la animación (ajusta según tus necesidades)
         int desplazamientoFinal = -160; // La cantidad que quieres desplazar hacia la izquierda
-        
         // Cambia la dirección de la animación en función del estado actual del menú
         int desplazamientoInicial = menuDesplegado ? desplazamientoFinal : 0;
         int desplazamientoObjetivo = menuDesplegado ? 0 : desplazamientoFinal;
@@ -309,7 +309,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             lblMostrarListado.setText("");
             lblInicio.setText(""); 
             lblEliminar.setText(""); 
-            lblEstado.setText(""); 
+            lblEditar.setText(""); 
         }
         
         Timer timer = new Timer(10, new ActionListener() {
@@ -353,7 +353,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                             lblMostrarListado.setText("Mostrar Listado");
                             lblInicio.setText("Inicio");
                             lblEliminar.setText("Eliminar Persona"); 
-                            lblEstado.setText("Cambiar E. Civil"); 
+                            lblEditar.setText("Cambiar E. Civil"); 
                         }
                         });
                         textTimer.setRepeats(false); // Ejecutar una sola vez
@@ -374,7 +374,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_AgregarMousePressed
 
     private void ListarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListarMousePressed
-        // TODO add your handling code here:
+        VentanaListar ven = new VentanaListar(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_ListarMousePressed
 
     private void lblMostrarListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMostrarListadoMousePressed
@@ -390,7 +392,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_InicioMousePressed
 
     private void EliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMousePressed
-        // TODO add your handling code here:
+        VentanaEliminar ven = new VentanaEliminar(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_EliminarMousePressed
 
     private void EstadoCivilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstadoCivilMousePressed
@@ -401,9 +405,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblEliminarMousePressed
 
-    private void lblEstadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEstadoMousePressed
+    private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblEstadoMousePressed
+    }//GEN-LAST:event_lblEditarMousePressed
 
     private void MensajeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MensajeMousePressed
         // TODO add your handling code here:
@@ -464,8 +468,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel PanelGobierno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAgregarPersona;
+    private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblEliminar;
-    private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblMostrarListado;
     // End of variables declaration//GEN-END:variables

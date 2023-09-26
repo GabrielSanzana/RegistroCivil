@@ -80,8 +80,10 @@ public class ConjuntoPersonas
     return totalPersonas;
   }
   
-  public void mostrarPersonas() {
-    System.out.println(); 
+  public String[][] mostrarPersonas() {
+    System.out.println();
+    String [][] arr = new String[][];
+    
     for (Persona persona : personas) 
     {              
       System.out.println("————————————————————————————————————————————————");
