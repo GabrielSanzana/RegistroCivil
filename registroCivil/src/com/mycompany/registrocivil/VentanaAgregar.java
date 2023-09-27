@@ -558,43 +558,47 @@ public class VentanaAgregar extends javax.swing.JFrame {
         String rut = casillaRut.getText();
         String selectedRegion = selectedItem.toString();
         
-        if (rut.equals("") || nombre.equals("") || selectedRegion.equals("Seleccione")) {
+        if (rut.equals("") || nombre.equals("") || selectedRegion.equals("Seleccione") || casillaNacimiento.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
             casillaNombre.setText("");
             casillaRut.setText("");
             casillaDefuncion.setText("");
             casillaNacimiento.setDate(null);
+            comboBoxRegiones.setSelectedIndex(0);
         }
-        Region region = conjuntoRegiones.buscarRegion(selectedRegion);
-        SimpleDateFormat formatoFecha;
-        String fechaFormateada = null;
-        Date fechaSeleccionada = casillaNacimiento.getDate();
-        if (fechaSeleccionada != null) {
-            formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-            fechaFormateada = formatoFecha.format(fechaSeleccionada);
-        }
-        //el usuario selecciona del combobox y devuelve un int
-        String estadoSeleccionado = casillaEstado.getSelectedItem().toString();
-        int estadoNumerico;
-        if (estadoSeleccionado.equals("Soltero")) 
-          estadoNumerico = 0;
-        else if (estadoSeleccionado.equals("Casado")) 
-          estadoNumerico = 1;
-        else if (estadoSeleccionado.equals("Divorciado")) 
-          estadoNumerico = 2;
-        else if (estadoSeleccionado.equals("Viudo")) 
-          estadoNumerico = 3;
-        else if (estadoSeleccionado.equals("Separado")) 
-          estadoNumerico = 4;
         else
-          estadoNumerico = 0; //Caso en el que no se selecciona nada.
-        
-        String defuncion = casillaDefuncion.getText();
-        
-        boolean seAgrego = region.agregarPersona(rut,nombre,estadoNumerico,fechaFormateada,defuncion);
-        if (seAgrego)
         {
-            JOptionPane.showMessageDialog(null, "Persona agregada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            Region region = conjuntoRegiones.buscarRegion(selectedRegion);
+            SimpleDateFormat formatoFecha;
+            String fechaFormateada = null;
+            Date fechaSeleccionada = casillaNacimiento.getDate();
+            if (fechaSeleccionada != null) {
+                formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                fechaFormateada = formatoFecha.format(fechaSeleccionada);
+            }
+            //el usuario selecciona del combobox y devuelve un int
+            String estadoSeleccionado = casillaEstado.getSelectedItem().toString();
+            int estadoNumerico;
+            if (estadoSeleccionado.equals("Soltero")) 
+              estadoNumerico = 0;
+            else if (estadoSeleccionado.equals("Casado")) 
+              estadoNumerico = 1;
+            else if (estadoSeleccionado.equals("Divorciado")) 
+              estadoNumerico = 2;
+            else if (estadoSeleccionado.equals("Viudo")) 
+              estadoNumerico = 3;
+            else if (estadoSeleccionado.equals("Separado")) 
+              estadoNumerico = 4;
+            else
+              estadoNumerico = 0; //Caso en el que no se selecciona nada.
+
+            String defuncion = casillaDefuncion.getText();
+
+            boolean seAgrego = region.agregarPersona(rut,nombre,estadoNumerico,fechaFormateada,defuncion);
+            if (seAgrego)
+            {
+                JOptionPane.showMessageDialog(null, "Persona agregada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         casillaNombre.setText("");
         casillaRut.setText("");
