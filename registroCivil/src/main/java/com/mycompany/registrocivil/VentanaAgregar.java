@@ -556,7 +556,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
         String nombre = casillaNombre.getText();
         String rut = casillaRut.getText();
         String selectedRegion = null;
-        if (rut.equals("") || nombre.equals("") || selectedItem == null) {
+        if (rut.equals("") || nombre.equals("")) {
             JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
             casillaNombre.setText("");
             casillaRut.setText("");

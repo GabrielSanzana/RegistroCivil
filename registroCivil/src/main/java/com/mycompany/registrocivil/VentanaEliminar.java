@@ -4,8 +4,14 @@
  */
 package com.mycompany.registrocivil;
 import com.mycompany.registrocivil.Clases.ConjuntoRegiones;
+import com.mycompany.registrocivil.Clases.Region;
+import com.mycompany.registrocivil.Clases.Persona;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class VentanaEliminar extends javax.swing.JFrame {
@@ -16,6 +22,7 @@ public class VentanaEliminar extends javax.swing.JFrame {
         this.conjuntoRegiones = conjunto;
         initComponents();
         String [] nombres = conjuntoRegiones.obtenerNombresRegiones();
+        comboBoxRegiones.addItem("Seleccione");
         for(String nombre : nombres)
             comboBoxRegiones.addItem(nombre);
         casillaNacimiento.setEnabled(false);
@@ -318,6 +325,11 @@ public class VentanaEliminar extends javax.swing.JFrame {
                 btnEliminarMousePressed(evt);
             }
         });
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -592,6 +604,44 @@ public class VentanaEliminar extends javax.swing.JFrame {
         ven.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_AgregarMousePressed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Object selectedItem = comboBoxRegiones.getSelectedItem();
+        Date fechaNacimiento;
+        String selectedRegion = null, fNac = null;
+        SimpleDateFormat formatoFecha;
+        Persona personaEliminada;
+        String rut = casillaRut.getText();
+        if (rut.equals("")) {
+            casillaRut.setText("");
+            comboBoxRegiones.setSelectedIndex(0);
+        }
+        else
+        {
+            selectedRegion = selectedItem.toString();
+            if(selectedRegion.equals("Seleccione") == false)
+                personaEliminada = conjuntoRegiones.eliminarPersona(rut, selectedRegion);
+            else
+                personaEliminada = conjuntoRegiones.eliminarPersona(rut);
+            
+            if(personaEliminada != null)
+            {
+                casillaNombre.setText(personaEliminada.getNombre());
+                casillaRutDatos.setText(personaEliminada.getRut());
+                fNac = personaEliminada.getFNac();
+                formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    fechaNacimiento = formatoFecha.parse(fNac);
+                    casillaNacimiento.setDate(fechaNacimiento);
+                } catch (ParseException e) {
+                    e.printStackTrace(); 
+                }
+                casillaDefuncion.setText(personaEliminada.getDef());
+                casillaEstado.setText(personaEliminada.getEstadoCivil());
+            }
+                
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
 // Code adding the component to the parent container - not shown here

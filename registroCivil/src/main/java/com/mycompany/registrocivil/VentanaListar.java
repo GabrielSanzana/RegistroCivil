@@ -7,6 +7,7 @@ import com.mycompany.registrocivil.Clases.ConjuntoRegiones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -313,6 +314,11 @@ public class VentanaListar extends javax.swing.JFrame {
         lblRegion1.setText("Región:");
 
         jButton4.setText("Buscar");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton4MousePressed(evt);
+            }
+        });
 
         jButton2.setText("Filtrar");
 
@@ -522,6 +528,32 @@ public class VentanaListar extends javax.swing.JFrame {
     private void GobiernoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GobiernoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_GobiernoMousePressed
+
+    private void jButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MousePressed
+        Object selectedItem = comboBoxRegiones.getSelectedItem();
+        String selectedRegion = selectedItem.toString();
+        String []nada = {"","","","",""}; 
+        if (!selectedRegion.equals("Seleccione")) {
+            String[][] arr = conjuntoRegiones.mostrarDatosPoblacionEnRegion(selectedRegion);
+
+            DefaultTableModel model = (DefaultTableModel) tablaPersonas.getModel();
+
+            // Limpiar la tabla antes de agregar nuevos datos
+            model.setRowCount(0);
+
+            // Agregar las filas del arreglo a la tabla
+            for (String[] fila : arr) {
+                model.addRow(fila);
+            }
+
+            // Completar con filas vacías si es necesario
+            int rowCount = model.getRowCount();
+            while (rowCount < 17) {
+                model.addRow(nada); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
+                rowCount++;
+            }
+        }
+    }//GEN-LAST:event_jButton4MousePressed
 
     /**
      * @param args the command line arguments
