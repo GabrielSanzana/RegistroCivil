@@ -154,10 +154,15 @@ public class ConjuntoRegiones {
     }
     
     public Persona eliminarPersona(String r){
+        Persona persona;
         for(int i = 0; i < regiones.size(); i++){
             Region aux = regiones.get(i);
             if(aux.obtenerPersona(r) != null)
-                return aux.obtenerPersona(r);
+            {
+                persona = aux.obtenerPersona(r);
+                aux.eliminarPersona(persona.getRut());
+                return persona;
+            }
                 
         }
         return null;
@@ -165,8 +170,13 @@ public class ConjuntoRegiones {
     
     public Persona eliminarPersona(String r, String region){
         Region aux = mapaRegiones.get(region);
+        Persona persona;
         if(aux.obtenerPersona(r) != null)
+        {
+            persona = aux.obtenerPersona(r);
+            aux.eliminarPersona(persona.getRut());
             return aux.obtenerPersona(r);
+        }
                 
         return null;
     }
@@ -180,13 +190,13 @@ public class ConjuntoRegiones {
         }
     }
 
-    public void mostrarDatosPoblacionEnRegion(String nombreRegion) {
+    public String[][] mostrarDatosPoblacionEnRegion(String nombreRegion) {
         Region region = buscarRegion(nombreRegion);
         if (region != null) {
-            region.mostrarDatosPoblacion();
-        } else {
-            System.out.println("No existe la región buscada: " + nombreRegion);
+            return region.mostrarDatosPoblacion();
         }
+        
+        return null;
     }
     
     

@@ -1,6 +1,5 @@
 package com.mycompany.registrocivil.Clases;
 
-import com.mycompany.registrocivil.Clases.ConjuntoPersonas;
 import java.util.*;
 import java.io.*;
 public class Region 
@@ -49,9 +48,9 @@ public class Region
     auxiliar.getDef();
   }
 
-  public void mostrarDatosPoblacion()
+  public String[][] mostrarDatosPoblacion()
   {
-    personas.mostrarPersonas();
+     return personas.mostrarPersonas();
   }
 
   public void cargarPersonasDesdeCSV(String filePath) throws IOException {
