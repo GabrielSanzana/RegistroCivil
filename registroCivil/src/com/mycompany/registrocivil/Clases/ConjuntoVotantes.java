@@ -37,7 +37,7 @@ public class ConjuntoVotantes extends ConjuntoPersonas {
     public boolean agregarVotante(String rut, String nombre, int estado, String fNac, String def, int anioRegistro, String partidoPolitico) {
         if (mapaVot.containsKey(rut))
             return false;
-        Votante aux = new Votante(rut, nombre,fNac , estado, anioRegistro, partidoPolitico);
+        Votante aux = new Votante(rut, nombre , estado,fNac,def, anioRegistro, partidoPolitico);
         mapaVot.put(rut, aux);
         votantes.add(aux);
         totalVotantes++;
@@ -49,5 +49,5 @@ public class ConjuntoVotantes extends ConjuntoPersonas {
         return totalVotantes;
     }
     
-    // Aquí puedes sobrescribir otros métodos según sea necesario
+    
 }

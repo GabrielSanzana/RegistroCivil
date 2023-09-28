@@ -1,16 +1,19 @@
 package com.mycompany.registrocivil.Clases;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.*;
 import java.io.*;
 public class Region 
 {
   private String nombreRegion;
   private ConjuntoPersonas personas;
+  private ConjuntoVotantes votantes;
   
   public Region(String region)
   {
       this.nombreRegion = region;
       personas = new ConjuntoPersonas();
+      votantes = new ConjuntoVotantes();
   }
   
   public int getCant()
@@ -22,12 +25,46 @@ public class Region
   {
     return nombreRegion;
   }
+  
+    private static int esMayorQue18(String fNac) {
+        // Obtener la fecha actual
+        Date fechaActual = new Date();
 
+        // Convertir la fecha de nacimiento (String) a Date
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaNacimiento = null;
+        try {
+            fechaNacimiento = formatoFecha.parse(fNac);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        // Calcular la diferencia en milisegundos
+        long diferenciaMilisegundos = fechaActual.getTime() - fechaNacimiento.getTime();
+
+        // Convertir la diferencia de milisegundos a años
+        long milisegundosPorAnio = 365 * 24 * 60 * 60 * 1000L; // Aproximadamente 1 año en milisegundos
+        long diferenciaAnios = diferenciaMilisegundos / milisegundosPorAnio;
+
+        // Comprobar si la persona tiene al menos 18 años
+        return (int) diferenciaAnios;
+    }
+  
   public boolean agregarPersona(String rut, String nombre, int estado,String fNac, String defuncion)
   {
+      if(esMayorQue18(fNac) >= 18)
+      {
+        Date fechaActual = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy");
+        String año = formato.format(fechaActual);
+        int añoActual = Integer.parseInt(año);
+        votantes.agregarVotante(rut, nombre, estado, fNac, defuncion,añoActual-esMayorQue18(fNac) + 18, "No está registrado en un partido" );
+      }
     return personas.agregarPersona(rut, nombre, estado,fNac, defuncion);
   }
 
+  
 
   public Persona eliminarPersona(String rut)
   {
@@ -113,6 +150,73 @@ public class Region
             System.out.println("Error al crear o escribir en el archivo CSV.");
         }
     }
+  
+    public void cargarVotantesDesdeCSV() throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader("CarpetaRegionesVotantes"));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length == 7) {
+                String rut = parts[0];
+                String nombre = parts[1];
+                String estadoCivil = parts[2];
+                int estadoCivilEntero = 0;
+                String[] arr = {"Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a", "Separado/a"};
+                for (int k = 0; k < 4; k++) {
+                    if (estadoCivil.equals(arr[k])) {
+                        estadoCivilEntero = k;
+                        break;
+                    }
+                }
+
+                String fechaNacimiento = parts[3];
+                String defuncion = parts[4];
+                int anioRegistro = Integer.parseInt(parts[5]);
+                String partidoPolitico = parts[6];
+
+                // Llama al método agregarVotante para agregar al votante al conjunto
+                votantes.agregarVotante(rut, nombre, estadoCivilEntero, fechaNacimiento, defuncion, anioRegistro, partidoPolitico);
+            } else {
+                System.err.println("Error: línea CSV mal formada: " + line);
+            }
+        }
+        br.close();
+    }
+
+    public void exportarVotantesACSV( ) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("CarpetaRegionesVotantes"));
+
+            // Obtener la lista de votantes utilizando el método getVotantes()
+            ArrayList<Votante> listaVotantes = votantes.getVotantes();
+
+            for (int i = 0; i < listaVotantes.size(); i++) {
+                // Construye una línea CSV con los datos del votante
+                Votante votante = listaVotantes.get(i);
+                String lineaCSV = String.format(
+                    "%s,%s,%s,%s,%s,%s,%s",
+                    votante.getRut(),
+                    votante.getNombre(),
+                    "" + votante.getEstadoCivil(),
+                    votante.getFNac(),
+                    votante.getDef(),
+                    "" + votante.getAnioRegistro(),
+                    votante.getPartido()
+                );
+
+                // Escribe la línea CSV en el archivo
+                bw.write(lineaCSV);
+                bw.newLine();
+            }
+
+            // Cierra el BufferedWriter para liberar recursos
+            bw.close();
+            System.out.println("Exportación a CSV completada con éxito.");
+        } catch (IOException e) {
+            System.out.println("Error al crear o escribir en el archivo CSV.");
+        }
+    }
+  
   
   public Persona buscarPersona(String rut){
       return personas.buscarPersona(rut);

@@ -12,9 +12,9 @@ package com.mycompany.registrocivil.Clases;
 public class Votante extends Persona {
     int anioRegistro;
     String partido;
-    public Votante(String rut, String nombre,String fNac, int estado, int anio, String p)
+    public Votante(String rut, String nombre,int estado,String fNac,String def,  int anio, String p)
     {
-        super(rut,nombre,fNac,estado);
+        super(rut,nombre,estado,fNac, def);
         this.anioRegistro = anio;
         this.partido = p;
     }
