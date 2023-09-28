@@ -4,29 +4,34 @@
  */
 package com.mycompany.registrocivil;
 import com.mycompany.registrocivil.Clases.ConjuntoRegiones;
+import com.mycompany.registrocivil.Clases.Persona;
+import com.mycompany.excepciones.EliminarPersonaException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import java.text.ParseException;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableModel;
 
-
-
-
-public class VentanaListar extends javax.swing.JFrame {
+public class VentanaEliminarPersona extends javax.swing.JFrame {
     
     ConjuntoRegiones conjuntoRegiones;
     
-    public VentanaListar(ConjuntoRegiones conjunto){
+    public VentanaEliminarPersona(ConjuntoRegiones conjunto){
         this.conjuntoRegiones = conjunto;
         initComponents();
-        comboBoxRegiones.addItem("Seleccione");
         String [] nombres = conjuntoRegiones.obtenerNombresRegiones();
+        comboBoxRegiones.addItem("Seleccione");
         for(String nombre : nombres)
             comboBoxRegiones.addItem(nombre);
-        tablaPersonas.setEnabled(false);
-        tablaPersonas.getTableHeader().setReorderingAllowed(false);
-        Listar.setEnabled(false);
-        lblMostrarListado.setEnabled(false);
+        casillaNacimiento.setEnabled(false);
+        casillaDefuncion.setEnabled(false);
+        casillaRutDatos.setEnabled(false);
+        casillaNombre.setEnabled(false);
+        casillaEstado.setEnabled(false);
+        Eliminar.setEnabled(false);
+        lblEliminar.setEnabled(false);
     }
 
     /**
@@ -48,23 +53,33 @@ public class VentanaListar extends javax.swing.JFrame {
         lblInicio = new javax.swing.JLabel();
         Inicio = new javax.swing.JLabel();
         Listar = new javax.swing.JLabel();
-        EstadoCivil = new javax.swing.JLabel();
+        Editar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
         Eliminar = new javax.swing.JLabel();
         PanelGobierno = new javax.swing.JPanel();
         Gobierno = new javax.swing.JLabel();
         Cuadro = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaPersonas = new javax.swing.JTable();
         panelEliminar = new javax.swing.JPanel();
+        lblRut = new javax.swing.JLabel();
+        casillaRut = new javax.swing.JTextField();
         lblTituloEliminar = new javax.swing.JLabel();
         comboBoxRegiones = new javax.swing.JComboBox<>();
         lblRegion1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        lblRegion2 = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        panelDatos = new javax.swing.JPanel();
+        lblRutDato = new javax.swing.JLabel();
+        casillaRutDatos = new javax.swing.JTextField();
+        lblTituloDatos = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        casillaNombre = new javax.swing.JTextField();
+        lblNacimiento = new javax.swing.JLabel();
+        casillaNacimiento = new com.toedter.calendar.JDateChooser();
+        lblDefuncion = new javax.swing.JLabel();
+        casillaDefuncion = new javax.swing.JTextField();
+        lblEstadoCivil = new javax.swing.JLabel();
+        casillaEstado = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,11 +125,6 @@ public class VentanaListar extends javax.swing.JFrame {
         lblMostrarListado.setForeground(new java.awt.Color(255, 255, 255));
         lblMostrarListado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMostrarListado.setText("Mostrar Listado");
-        lblMostrarListado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblMostrarListadoMousePressed(evt);
-            }
-        });
 
         lblAgregarPersona.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblAgregarPersona.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,11 +135,6 @@ public class VentanaListar extends javax.swing.JFrame {
         lblInicio.setForeground(new java.awt.Color(255, 255, 255));
         lblInicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblInicio.setText("Inicio");
-        lblInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblInicioMousePressed(evt);
-            }
-        });
 
         Inicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Inicio.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/inicio.png"));
@@ -147,11 +152,11 @@ public class VentanaListar extends javax.swing.JFrame {
             }
         });
 
-        EstadoCivil.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        EstadoCivil.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/estado.png"));
-        EstadoCivil.addMouseListener(new java.awt.event.MouseAdapter() {
+        Editar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Editar.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/estado.png"));
+        Editar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                EstadoCivilMousePressed(evt);
+                EditarMousePressed(evt);
             }
         });
 
@@ -159,29 +164,14 @@ public class VentanaListar extends javax.swing.JFrame {
         lblEditar.setForeground(new java.awt.Color(255, 255, 255));
         lblEditar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblEditar.setText("Editar Persona");
-        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblEditarMousePressed(evt);
-            }
-        });
 
         lblEliminar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblEliminar.setForeground(new java.awt.Color(255, 255, 255));
         lblEliminar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblEliminar.setText("Eliminar Persona");
-        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblEliminarMousePressed(evt);
-            }
-        });
 
         Eliminar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Eliminar.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/eliminar.png"));
-        Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                EliminarMousePressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout MenuLateralLayout = new javax.swing.GroupLayout(MenuLateral);
         MenuLateral.setLayout(MenuLateralLayout);
@@ -197,7 +187,7 @@ public class VentanaListar extends javax.swing.JFrame {
                             .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +221,7 @@ public class VentanaListar extends javax.swing.JFrame {
                     .addComponent(Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(369, Short.MAX_VALUE))
         );
@@ -268,111 +258,179 @@ public class VentanaListar extends javax.swing.JFrame {
 
         Cuadro.setBackground(new java.awt.Color(241, 241, 241));
 
-        tablaPersonas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Rut", "Fecha de nacimiento", "Defunción", "Estado civil"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablaPersonas);
-
         panelEliminar.setBackground(new java.awt.Color(241, 241, 241));
         panelEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        lblRut.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblRut.setText("Rut:");
+
+        casillaRut.setMinimumSize(new java.awt.Dimension(64, 24));
+        casillaRut.setPreferredSize(new java.awt.Dimension(64, 25));
+
         lblTituloEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblTituloEliminar.setText("Seleecionar Región");
+        lblTituloEliminar.setText("Eliminar persona");
 
         comboBoxRegiones.setPreferredSize(new java.awt.Dimension(72, 25));
 
         lblRegion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblRegion1.setText("Región:");
 
-        jButton4.setText("Buscar");
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton4MousePressed(evt);
-            }
-        });
-
-        jButton2.setText("Filtrar");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Fecha de nacimiento", "Defunción", "Estado civil" }));
-
-        lblRegion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblRegion2.setText("Filtrar:");
-
         javax.swing.GroupLayout panelEliminarLayout = new javax.swing.GroupLayout(panelEliminar);
         panelEliminar.setLayout(panelEliminarLayout);
         panelEliminarLayout.setHorizontalGroup(
             panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEliminarLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(25, 25, 25)
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelEliminarLayout.createSequentialGroup()
-                        .addComponent(lblRegion2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblRut, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addComponent(casillaRut, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelEliminarLayout.createSequentialGroup()
                         .addComponent(lblRegion1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBoxRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(231, 231, 231)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBoxRegiones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(247, Short.MAX_VALUE))
             .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelEliminarLayout.createSequentialGroup()
                     .addGap(16, 16, 16)
-                    .addComponent(lblTituloEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(495, Short.MAX_VALUE)))
+                    .addComponent(lblTituloEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(339, Short.MAX_VALUE)))
         );
         panelEliminarLayout.setVerticalGroup(
             panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEliminarLayout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(76, Short.MAX_VALUE)
                 .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRegion1)
+                    .addComponent(lblRut)
+                    .addComponent(casillaRut, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(lblRegion2))
-                .addGap(36, 36, 36))
+                    .addComponent(lblRegion1))
+                .addGap(28, 28, 28))
             .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelEliminarLayout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addComponent(lblTituloEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(109, Short.MAX_VALUE)))
+                    .addContainerGap(95, Short.MAX_VALUE)))
+        );
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                try{btnEliminarMousePressed(evt);}
+                catch(EliminarPersonaException e)
+                {
+                    if(e.getExcepction().equals("rut"))
+                        JOptionPane.showMessageDialog(null, "Los datos ingresados en el campo "+e.getExcepction()+" son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
+                    if(e.getExcepction().equals("persona"))
+                        JOptionPane.showMessageDialog(null, "La persona ingresada no existe", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnLimpiarMousePressed(evt);
+            }
+        });
+
+        panelDatos.setBackground(new java.awt.Color(241, 241, 241));
+        panelDatos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblRutDato.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblRutDato.setText("Rut:");
+
+        casillaRutDatos.setMinimumSize(new java.awt.Dimension(64, 24));
+        casillaRutDatos.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        lblTituloDatos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTituloDatos.setText("Datos Persona Eliminada");
+
+        lblNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNombre.setText("Nombre:");
+
+        casillaNombre.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        lblNacimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNacimiento.setText("Fecha de nacimiento:");
+
+        casillaNacimiento.setPreferredSize(new java.awt.Dimension(85, 25));
+
+        lblDefuncion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDefuncion.setText("Defunción:");
+
+        casillaDefuncion.setMinimumSize(new java.awt.Dimension(64, 25));
+        casillaDefuncion.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        lblEstadoCivil.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblEstadoCivil.setText("Estado Civil:");
+
+        casillaEstado.setMinimumSize(new java.awt.Dimension(64, 25));
+        casillaEstado.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
+        panelDatos.setLayout(panelDatosLayout);
+        panelDatosLayout.setHorizontalGroup(
+            panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(lblNacimiento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(casillaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(casillaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(lblRutDato, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(casillaRutDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 67, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDefuncion)
+                    .addComponent(lblEstadoCivil))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(casillaDefuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(casillaEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
+            .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelDatosLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(lblTituloDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(480, Short.MAX_VALUE)))
+        );
+        panelDatosLayout.setVerticalGroup(
+            panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(casillaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDefuncion)
+                    .addComponent(casillaDefuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(casillaRutDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRutDato)
+                    .addComponent(lblEstadoCivil)
+                    .addComponent(casillaEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNacimiento)
+                    .addComponent(casillaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(55, Short.MAX_VALUE))
+            .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelDatosLayout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(lblTituloDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(163, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout CuadroLayout = new javax.swing.GroupLayout(Cuadro);
@@ -380,20 +438,34 @@ public class VentanaListar extends javax.swing.JFrame {
         CuadroLayout.setHorizontalGroup(
             CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CuadroLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CuadroLayout.createSequentialGroup()
+                        .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(CuadroLayout.createSequentialGroup()
+                        .addComponent(panelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))))
         );
         CuadroLayout.setVerticalGroup(
             CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CuadroLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(panelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGroup(CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CuadroLayout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(panelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(CuadroLayout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         Fondo.add(Cuadro, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 770, 600));
@@ -442,7 +514,7 @@ public class VentanaListar extends javax.swing.JFrame {
                     Inicio.setLocation(-desplazamientoActual, Inicio.getY());
                     Listar.setLocation(-desplazamientoActual, Listar.getY());
                     Eliminar.setLocation(-desplazamientoActual, Eliminar.getY());
-                    EstadoCivil.setLocation(-desplazamientoActual, EstadoCivil.getY());
+                    Editar.setLocation(-desplazamientoActual, Editar.getY());
                     if (menuDesplegado == false) {               
                         Cuadro.setLocation(Cuadro.getX() - velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() + velocidadAnimacion, Cuadro.getHeight());
@@ -484,23 +556,11 @@ public class VentanaListar extends javax.swing.JFrame {
         timer.start();
     }//GEN-LAST:event_IconoMenuMousePressed
     
-    private void AgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMousePressed
-        VentanaAgregar ven = new VentanaAgregar(conjuntoRegiones);
+    private void ListarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListarMousePressed
+        VentanaListarPersona ven = new VentanaListarPersona(conjuntoRegiones);
         ven.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_AgregarMousePressed
-
-    private void ListarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListarMousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_ListarMousePressed
-
-    private void lblMostrarListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMostrarListadoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblMostrarListadoMousePressed
-
-    private void lblInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblInicioMousePressed
 
     private void InicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InicioMousePressed
         VentanaPrincipal ven = new VentanaPrincipal(conjuntoRegiones);
@@ -508,53 +568,69 @@ public class VentanaListar extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_InicioMousePressed
 
-    private void EliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMousePressed
-        VentanaEliminar ven = new VentanaEliminar(conjuntoRegiones);
+    private void EditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarMousePressed
+        VentanaEditarPersona ven = new VentanaEditarPersona(conjuntoRegiones);
         ven.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_EliminarMousePressed
-
-    private void EstadoCivilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstadoCivilMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EstadoCivilMousePressed
-
-    private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblEliminarMousePressed
-
-    private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblEditarMousePressed
+    }//GEN-LAST:event_EditarMousePressed
 
     private void GobiernoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GobiernoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_GobiernoMousePressed
 
-    private void jButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MousePressed
+    private void btnEliminarMousePressed(java.awt.event.MouseEvent evt) throws EliminarPersonaException{//GEN-FIRST:event_btnEliminarMousePressed
         Object selectedItem = comboBoxRegiones.getSelectedItem();
-        String selectedRegion = selectedItem.toString();
-        String []nada = {"","","","",""}; 
-        if (!selectedRegion.equals("Seleccione")) {
-            String[][] arr = conjuntoRegiones.mostrarDatosPoblacionEnRegion(selectedRegion);
-
-            DefaultTableModel model = (DefaultTableModel) tablaPersonas.getModel();
-
-            // Limpiar la tabla antes de agregar nuevos datos
-            model.setRowCount(0);
-
-            // Agregar las filas del arreglo a la tabla
-            for (String[] fila : arr) {
-                model.addRow(fila);
-            }
-
-            // Completar con filas vacías si es necesario
-            int rowCount = model.getRowCount();
-            while (rowCount < 17) {
-                model.addRow(nada); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
-                rowCount++;
-            }
+        Date fechaNacimiento;
+        String selectedRegion, fNac;
+        SimpleDateFormat formatoFecha;
+        Persona personaEliminada;
+        String rut = casillaRut.getText();
+        selectedRegion = selectedItem.toString();
+        if(selectedRegion.equals("Seleccione") == false)
+            personaEliminada = conjuntoRegiones.eliminarPersona(rut, selectedRegion);
+        else
+            personaEliminada = conjuntoRegiones.eliminarPersona(rut);
+        
+        if (rut.equals("") || personaEliminada == null) {
+            casillaRut.setText("");
+            comboBoxRegiones.setSelectedIndex(0);
+            casillaNombre.setText("");
+            casillaRutDatos.setText("");
+            casillaNacimiento.setDate(null);
+            casillaDefuncion.setText("");
+            casillaEstado.setText("");
+            throw new EliminarPersonaException(rut,personaEliminada);
         }
-    }//GEN-LAST:event_jButton4MousePressed
+        
+            
+        casillaNombre.setText(personaEliminada.getNombre());
+        casillaRutDatos.setText(personaEliminada.getRut());
+        fNac = personaEliminada.getFNac();
+        formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            fechaNacimiento = formatoFecha.parse(fNac);
+            casillaNacimiento.setDate(fechaNacimiento);
+        } catch (ParseException e) {
+            e.printStackTrace(); 
+        }
+        casillaDefuncion.setText(personaEliminada.getDef());
+        casillaEstado.setText(personaEliminada.getEstadoCivil());
+    }//GEN-LAST:event_btnEliminarMousePressed
+
+    private void btnLimpiarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMousePressed
+        casillaRut.setText("");
+        comboBoxRegiones.setSelectedIndex(0);
+    }//GEN-LAST:event_btnLimpiarMousePressed
+
+    private void AgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMousePressed
+        VentanaAgregarPersona ven = new VentanaAgregarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_AgregarMousePressed
+
+
+
+// Code adding the component to the parent container - not shown here
 
     /**
      * @param args the command line arguments
@@ -573,14 +649,20 @@ public class VentanaListar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEliminarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEliminarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEliminarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEliminarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -588,7 +670,7 @@ public class VentanaListar extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ConjuntoRegiones conjunto = new ConjuntoRegiones();
-                new VentanaListar(conjunto).setVisible(true);
+                new VentanaEliminarPersona(conjunto).setVisible(true);
             }
         });
     }
@@ -596,8 +678,8 @@ public class VentanaListar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Agregar;
     private javax.swing.JPanel Cuadro;
+    private javax.swing.JLabel Editar;
     private javax.swing.JLabel Eliminar;
-    private javax.swing.JLabel EstadoCivil;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Gobierno;
     private javax.swing.JLabel IconoMenu;
@@ -605,21 +687,31 @@ public class VentanaListar extends javax.swing.JFrame {
     private javax.swing.JLabel Listar;
     private javax.swing.JPanel MenuLateral;
     private javax.swing.JPanel PanelGobierno;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JTextField casillaDefuncion;
+    private javax.swing.JTextField casillaEstado;
+    private com.toedter.calendar.JDateChooser casillaNacimiento;
+    private javax.swing.JTextField casillaNombre;
+    private javax.swing.JTextField casillaRut;
+    private javax.swing.JTextField casillaRutDatos;
     private javax.swing.JComboBox<String> comboBoxRegiones;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAgregarPersona;
+    private javax.swing.JLabel lblDefuncion;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblEliminar;
+    private javax.swing.JLabel lblEstadoCivil;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblMostrarListado;
+    private javax.swing.JLabel lblNacimiento;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRegion1;
-    private javax.swing.JLabel lblRegion2;
+    private javax.swing.JLabel lblRut;
+    private javax.swing.JLabel lblRutDato;
+    private javax.swing.JLabel lblTituloDatos;
     private javax.swing.JLabel lblTituloEliminar;
+    private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelEliminar;
-    private javax.swing.JTable tablaPersonas;
     // End of variables declaration//GEN-END:variables
 }

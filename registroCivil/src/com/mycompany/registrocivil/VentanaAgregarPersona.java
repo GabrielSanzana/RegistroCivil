@@ -5,7 +5,7 @@
 package com.mycompany.registrocivil;
 import com.mycompany.registrocivil.Clases.ConjuntoRegiones;
 import com.mycompany.registrocivil.Clases.Region;
-import com.mycompany.excepciones.AgregarException;
+import com.mycompany.excepciones.AgregarPersonaException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -16,11 +16,11 @@ import java.util.Date;
 
 
 
-public class VentanaAgregar extends javax.swing.JFrame {
+public class VentanaAgregarPersona extends javax.swing.JFrame {
     
     ConjuntoRegiones conjuntoRegiones;
     
-    public VentanaAgregar(ConjuntoRegiones conjunto){
+    public VentanaAgregarPersona(ConjuntoRegiones conjunto){
         this.conjuntoRegiones = conjunto;
         initComponents();
         comboBoxRegiones.addItem("Seleccione");
@@ -50,7 +50,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
         lblInicio = new javax.swing.JLabel();
         Inicio = new javax.swing.JLabel();
         Listar = new javax.swing.JLabel();
-        EstadoCivil = new javax.swing.JLabel();
+        Editar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
         Eliminar = new javax.swing.JLabel();
@@ -142,11 +142,11 @@ public class VentanaAgregar extends javax.swing.JFrame {
             }
         });
 
-        EstadoCivil.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        EstadoCivil.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/estado.png"));
-        EstadoCivil.addMouseListener(new java.awt.event.MouseAdapter() {
+        Editar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Editar.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/estado.png"));
+        Editar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                EstadoCivilMousePressed(evt);
+                EditarMousePressed(evt);
             }
         });
 
@@ -182,7 +182,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
                             .addComponent(Agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +216,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
                     .addComponent(Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(369, Short.MAX_VALUE))
         );
@@ -264,7 +264,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 try {btnAgregarMousePressed(evt);}
-                catch(AgregarException e)
+                catch(AgregarPersonaException e)
                 {
                     JOptionPane.showMessageDialog(null, "Los datos ingresados en el campo "+e.getExcepction()+" son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
                 }
@@ -370,7 +370,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
         casillaDefuncion.setMinimumSize(new java.awt.Dimension(64, 25));
         casillaDefuncion.setPreferredSize(new java.awt.Dimension(64, 24));
 
-        casillaEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soltero", "Casado", "Divorciado", "Viudo", "Separado " }));
+        casillaEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a", "Separado/a" }));
 
         javax.swing.GroupLayout panelDetallesLayout = new javax.swing.GroupLayout(panelDetalles);
         panelDetalles.setLayout(panelDetallesLayout);
@@ -488,7 +488,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
                     Inicio.setLocation(-desplazamientoActual, Inicio.getY());
                     Listar.setLocation(-desplazamientoActual, Listar.getY());
                     Eliminar.setLocation(-desplazamientoActual, Eliminar.getY());
-                    EstadoCivil.setLocation(-desplazamientoActual, EstadoCivil.getY());
+                    Editar.setLocation(-desplazamientoActual, Editar.getY());
                     if (menuDesplegado == false) {               
                         Cuadro.setLocation(Cuadro.getX() - velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() + velocidadAnimacion, Cuadro.getHeight());
@@ -531,7 +531,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
     }//GEN-LAST:event_IconoMenuMousePressed
     
     private void ListarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListarMousePressed
-        VentanaListar ven = new VentanaListar(conjuntoRegiones);
+        VentanaListarPersona ven = new VentanaListarPersona(conjuntoRegiones);
         ven.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ListarMousePressed
@@ -543,20 +543,22 @@ public class VentanaAgregar extends javax.swing.JFrame {
     }//GEN-LAST:event_InicioMousePressed
 
     private void EliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMousePressed
-        VentanaEliminar ven = new VentanaEliminar(conjuntoRegiones);
+        VentanaEliminarPersona ven = new VentanaEliminarPersona(conjuntoRegiones);
         ven.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_EliminarMousePressed
 
-    private void EstadoCivilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EstadoCivilMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EstadoCivilMousePressed
+    private void EditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarMousePressed
+        VentanaEditarPersona ven = new VentanaEditarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EditarMousePressed
 
     private void GobiernoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GobiernoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_GobiernoMousePressed
       
-    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) throws AgregarException{//GEN-FIRST:event_btnAgregarMousePressed
+    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) throws AgregarPersonaException{//GEN-FIRST:event_btnAgregarMousePressed
         Object selectedItem;
         String nombre;
         String rut;
@@ -574,7 +576,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
             casillaDefuncion.setText("");
             casillaNacimiento.setDate(null);
             comboBoxRegiones.setSelectedIndex(0);
-            throw new AgregarException(rut, nombre, selectedRegion, fechaSeleccionada);
+            throw new AgregarPersonaException(rut, nombre, selectedRegion, fechaSeleccionada);
         }
         
         Region region = conjuntoRegiones.buscarRegion(selectedRegion);
@@ -585,15 +587,15 @@ public class VentanaAgregar extends javax.swing.JFrame {
             //el usuario selecciona del combobox y devuelve un int
         String estadoSeleccionado = casillaEstado.getSelectedItem().toString();
         int estadoNumerico;
-        if (estadoSeleccionado.equals("Soltero")) 
+        if (estadoSeleccionado.equals("Soltero/a")) 
             estadoNumerico = 0;
-        else if (estadoSeleccionado.equals("Casado")) 
+        else if (estadoSeleccionado.equals("Casado/a")) 
             estadoNumerico = 1;
-        else if (estadoSeleccionado.equals("Divorciado")) 
+        else if (estadoSeleccionado.equals("Divorciado/a")) 
             estadoNumerico = 2;
-        else if (estadoSeleccionado.equals("Viudo")) 
+        else if (estadoSeleccionado.equals("Viudo/a")) 
             estadoNumerico = 3;
-        else if (estadoSeleccionado.equals("Separado")) 
+        else if (estadoSeleccionado.equals("Separado/a")) 
             estadoNumerico = 4;
         else
             estadoNumerico = 0; //Caso en el que no se selecciona nada.
@@ -618,6 +620,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
         casillaRut.setText("");
         casillaNacimiento.setDate(null);
         casillaDefuncion.setText("");
+        comboBoxRegiones.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarMousePressed
 
 
@@ -640,14 +643,16 @@ public class VentanaAgregar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaAgregarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -655,7 +660,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ConjuntoRegiones conjunto = new ConjuntoRegiones();
-                new VentanaAgregar(conjunto).setVisible(true);
+                new VentanaAgregarPersona(conjunto).setVisible(true);
             }
         });
     }
@@ -663,8 +668,8 @@ public class VentanaAgregar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Agregar;
     private javax.swing.JPanel Cuadro;
+    private javax.swing.JLabel Editar;
     private javax.swing.JLabel Eliminar;
-    private javax.swing.JLabel EstadoCivil;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Gobierno;
     private javax.swing.JLabel IconoMenu;

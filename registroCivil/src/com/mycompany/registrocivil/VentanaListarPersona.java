@@ -7,19 +7,26 @@ import com.mycompany.registrocivil.Clases.ConjuntoRegiones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 
 
 
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaListarPersona extends javax.swing.JFrame {
     
     ConjuntoRegiones conjuntoRegiones;
     
-    public VentanaPrincipal(ConjuntoRegiones conjunto){
+    public VentanaListarPersona(ConjuntoRegiones conjunto){
         this.conjuntoRegiones = conjunto;
         initComponents();
-        Inicio.setEnabled(false);
-        lblInicio.setEnabled(false);
+        comboBoxRegiones.addItem("Seleccione");
+        String [] nombres = conjuntoRegiones.obtenerNombresRegiones();
+        for(String nombre : nombres)
+            comboBoxRegiones.addItem(nombre);
+        tablaPersonas.setEnabled(false);
+        tablaPersonas.getTableHeader().setReorderingAllowed(false);
+        Listar.setEnabled(false);
+        lblMostrarListado.setEnabled(false);
     }
 
     /**
@@ -48,7 +55,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         PanelGobierno = new javax.swing.JPanel();
         Gobierno = new javax.swing.JLabel();
         Cuadro = new javax.swing.JPanel();
-        Mensaje = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaPersonas = new javax.swing.JTable();
+        panelEliminar = new javax.swing.JPanel();
+        lblTituloEliminar = new javax.swing.JLabel();
+        comboBoxRegiones = new javax.swing.JComboBox<>();
+        lblRegion1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        lblRegion2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -252,30 +268,132 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         Cuadro.setBackground(new java.awt.Color(241, 241, 241));
 
-        Mensaje.setFont(new java.awt.Font("Rockwell", 0, 40)); // NOI18N
-        Mensaje.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Mensaje.setText("Sistema integrado de registro civil");
-        Mensaje.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                MensajeMousePressed(evt);
+        tablaPersonas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Rut", "Nombre", "Fecha de nacimiento", "Defunción", "Estado civil"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane1.setViewportView(tablaPersonas);
+
+        panelEliminar.setBackground(new java.awt.Color(241, 241, 241));
+        panelEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblTituloEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTituloEliminar.setText("Seleecionar Región");
+
+        comboBoxRegiones.setPreferredSize(new java.awt.Dimension(72, 25));
+
+        lblRegion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblRegion1.setText("Región:");
+
+        jButton4.setText("Buscar");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton4MousePressed(evt);
+            }
+        });
+
+        jButton2.setText("Filtrar");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Fecha de nacimiento", "Defunción", "Estado civil" }));
+
+        lblRegion2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblRegion2.setText("Filtrar:");
+
+        javax.swing.GroupLayout panelEliminarLayout = new javax.swing.GroupLayout(panelEliminar);
+        panelEliminar.setLayout(panelEliminarLayout);
+        panelEliminarLayout.setHorizontalGroup(
+            panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEliminarLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEliminarLayout.createSequentialGroup()
+                        .addComponent(lblRegion2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(panelEliminarLayout.createSequentialGroup()
+                        .addComponent(lblRegion1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboBoxRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(231, 231, 231)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+            .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelEliminarLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(lblTituloEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(495, Short.MAX_VALUE)))
+        );
+        panelEliminarLayout.setVerticalGroup(
+            panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEliminarLayout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRegion1)
+                    .addComponent(comboBoxRegiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(lblRegion2))
+                .addGap(36, 36, 36))
+            .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelEliminarLayout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(lblTituloEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(109, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout CuadroLayout = new javax.swing.GroupLayout(Cuadro);
         Cuadro.setLayout(CuadroLayout);
         CuadroLayout.setHorizontalGroup(
             CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CuadroLayout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
-                .addComponent(Mensaje)
-                .addGap(54, 54, 54))
+            .addGroup(CuadroLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         CuadroLayout.setVerticalGroup(
             CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CuadroLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(Mensaje)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addGap(61, 61, 61)
+                .addComponent(panelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         Fondo.add(Cuadro, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 770, 600));
@@ -299,6 +417,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void IconoMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoMenuMousePressed
         int velocidadAnimacion = 4; // Velocidad de la animación (ajusta según tus necesidades)
         int desplazamientoFinal = -160; // La cantidad que quieres desplazar hacia la izquierda
+        
         // Cambia la dirección de la animación en función del estado actual del menú
         int desplazamientoInicial = menuDesplegado ? desplazamientoFinal : 0;
         int desplazamientoObjetivo = menuDesplegado ? 0 : desplazamientoFinal;
@@ -328,13 +447,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         Cuadro.setLocation(Cuadro.getX() - velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() + velocidadAnimacion, Cuadro.getHeight());
                         PanelGobierno.setLocation(PanelGobierno.getX() - velocidadAnimacion, PanelGobierno.getY());
-                        Mensaje.setLocation(Mensaje.getX() - 1, Mensaje.getY());
                     } else {
                         Cuadro.setLocation(Cuadro.getX() + velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() - velocidadAnimacion, Cuadro.getHeight());
                         PanelGobierno.setLocation(PanelGobierno.getX() + velocidadAnimacion, PanelGobierno.getY());
                         PanelGobierno.setSize(PanelGobierno.getWidth(), PanelGobierno.getHeight());
-                        Mensaje.setLocation(Mensaje.getX() - 1, Mensaje.getY());
                     }
                     if (menuDesplegado) {
                         desplazamientoActual += velocidadAnimacion;
@@ -374,9 +491,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_AgregarMousePressed
 
     private void ListarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListarMousePressed
-        VentanaListarPersona ven = new VentanaListarPersona(conjuntoRegiones);
-        ven.setVisible(true);
-        this.setVisible(false);
+        // TODO add your handling code here:
     }//GEN-LAST:event_ListarMousePressed
 
     private void lblMostrarListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMostrarListadoMousePressed
@@ -388,7 +503,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblInicioMousePressed
 
     private void InicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InicioMousePressed
-        // TODO add your handling code here:
+        VentanaPrincipal ven = new VentanaPrincipal(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_InicioMousePressed
 
     private void EliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMousePressed
@@ -411,13 +528,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblEditarMousePressed
 
-    private void MensajeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MensajeMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MensajeMousePressed
-
     private void GobiernoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GobiernoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_GobiernoMousePressed
+
+    private void jButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MousePressed
+        Object selectedItem = comboBoxRegiones.getSelectedItem();
+        String selectedRegion = selectedItem.toString();
+        String []nada = {"","","","",""}; 
+        if (!selectedRegion.equals("Seleccione")) {
+            String[][] arr = conjuntoRegiones.mostrarDatosPoblacionEnRegion(selectedRegion);
+
+            DefaultTableModel model = (DefaultTableModel) tablaPersonas.getModel();
+
+            // Limpiar la tabla antes de agregar nuevos datos
+            model.setRowCount(0);
+
+            // Agregar las filas del arreglo a la tabla
+            for (String[] fila : arr) {
+                model.addRow(fila);
+            }
+
+            // Completar con filas vacías si es necesario
+            int rowCount = model.getRowCount();
+            while (rowCount < 17) {
+                model.addRow(nada); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
+                rowCount++;
+            }
+        }
+    }//GEN-LAST:event_jButton4MousePressed
 
     /**
      * @param args the command line arguments
@@ -436,21 +575,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListarPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ConjuntoRegiones conjunto = new ConjuntoRegiones();
-                new VentanaPrincipal(conjunto).setVisible(true);
+                new VentanaListarPersona(conjunto).setVisible(true);
             }
         });
     }
@@ -465,14 +607,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel IconoMenu;
     private javax.swing.JLabel Inicio;
     private javax.swing.JLabel Listar;
-    private javax.swing.JLabel Mensaje;
     private javax.swing.JPanel MenuLateral;
     private javax.swing.JPanel PanelGobierno;
+    private javax.swing.JComboBox<String> comboBoxRegiones;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAgregarPersona;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblEliminar;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblMostrarListado;
+    private javax.swing.JLabel lblRegion1;
+    private javax.swing.JLabel lblRegion2;
+    private javax.swing.JLabel lblTituloEliminar;
+    private javax.swing.JPanel panelEliminar;
+    private javax.swing.JTable tablaPersonas;
     // End of variables declaration//GEN-END:variables
 }

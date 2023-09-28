@@ -101,7 +101,7 @@
                                   <Component id="Agregar" min="-2" pref="45" max="-2" attributes="0"/>
                                   <Component id="Inicio" min="-2" pref="45" max="-2" attributes="0"/>
                                   <Component id="Listar" min="-2" pref="45" max="-2" attributes="0"/>
-                                  <Component id="EstadoCivil" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="Editar" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
                                   <Component id="Eliminar" min="-2" pref="45" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -145,7 +145,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="EstadoCivil" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="Editar" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="lblEditar" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="369" max="32767" attributes="0"/>
@@ -240,7 +240,7 @@
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ListarMousePressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="EstadoCivil">
+            <Component class="javax.swing.JLabel" name="Editar">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -248,7 +248,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EstadoCivilMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EditarMousePressed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblEditar">
