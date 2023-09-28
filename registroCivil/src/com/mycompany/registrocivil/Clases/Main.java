@@ -10,6 +10,8 @@ class Main {
         conjuntoRegiones.cargarCSVsDesdeCarpeta();
         Region test = conjuntoRegiones.buscarRegion("Región de Los Lagos");
         test.cargarPersonasDesdeCSV("test.csv");
+        test = conjuntoRegiones.buscarRegion("Región de Valparaíso");
+        test.cargarPersonasDesdeCSV("test.csv");
         conjuntoRegiones.exportarCSVsTodasLasRegiones();
     }
 }

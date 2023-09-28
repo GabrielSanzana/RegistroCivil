@@ -53,6 +53,9 @@ public class Persona
     return arr[estadoCivil];
   }
     
+  public int getEstadoCivilNum(){
+      return estadoCivil;
+  }
   public String getFNac()
   {
     return fechaNacimiento;
@@ -89,5 +92,23 @@ public class Persona
   {
     this.nombre = nombreNuevo;
   }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEstadoCivil(int estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public void setDefuncion(String defuncion) {
+        this.defuncion = defuncion;
+    }
+  
+  
 }
   
