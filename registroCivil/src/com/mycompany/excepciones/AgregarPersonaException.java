@@ -8,13 +8,13 @@ import java.util.Date;
  *
  * @author ageof
  */
-public class AgregarException extends Exception {
+public class AgregarPersonaException extends Exception {
     private String n;
     private String r;
     private Date f;
     private String region;
 
-    public AgregarException(String rut, String nombre, String regionSeleccionada, Date fNac)
+    public AgregarPersonaException(String rut, String nombre, String regionSeleccionada, Date fNac)
     {
         super();
         n = nombre;
