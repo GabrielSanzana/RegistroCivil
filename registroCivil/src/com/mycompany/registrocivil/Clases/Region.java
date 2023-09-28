@@ -61,11 +61,20 @@ public class Region
           if (parts.length == 5) {
               String rut = parts[0];
               String nombre = parts[1];
-              int estadoCivil = Integer.parseInt(parts[2]);
+              String estadoCivil = parts[2];
+              int estadoCivilEntero = 0;
+              String []arr = {"Soltero/a","Casado/a" , "Divorciado/a" ,"Viudo/a" ,"Separado/a"};
+              for(int k = 0 ; k<4 ; k++)
+                  if(estadoCivil.equals(arr[k]))
+                  {
+                      estadoCivilEntero = k;
+                      break;
+                  }
+                      
               String fechaNacimiento = parts[3];
               String defuncion = parts[4];
               // Llama al método agregarPersona para agregar la persona al conjunto
-              personas.agregarPersona(rut, nombre, estadoCivil, fechaNacimiento, defuncion);
+              personas.agregarPersona(rut, nombre, estadoCivilEntero, fechaNacimiento, defuncion);
           } else {
               System.err.println("Error: línea CSV mal formada: " + line);
           }
@@ -105,6 +114,10 @@ public class Region
         }
     }
   
+  public Persona buscarPersona(String rut){
+      return personas.buscarPersona(rut);
+  }
+  
   public void registroMatrimonio(String rut1, String rut2){
     (personas.buscarPersona(rut1)).cambiarEstadoCivil(1);
     (personas.buscarPersona(rut2)).cambiarEstadoCivil(1);
@@ -133,6 +146,9 @@ public class Region
       return personas.buscarPersona(r);
   }
   
+  public ConjuntoPersonas getConjuntoPersonas(){
+          return personas;
+  }
   
   /*
     

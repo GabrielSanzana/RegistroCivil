@@ -20,15 +20,6 @@ public class ConjuntoRegiones {
     public void exportarCSVsTodasLasRegiones() {
         // Crear el directorio (carpeta) si no existe
         File folder = new File("CarpetaRegiones");
-        if (!folder.exists()) {
-            boolean success = folder.mkdirs();
-            if (success) {
-                System.out.println("Directorio creado con éxito: " + "CarpetaRegiones");
-            } else {
-                System.err.println("Error al crear el directorio: " + "CarpetaRegiones");
-                return;
-            }
-        }
 
         // Obtener la lista de todas las regiones
         ArrayList<Region> todasLasRegiones = obtenerTodasLasRegiones();
@@ -189,7 +180,23 @@ public class ConjuntoRegiones {
             System.out.println("No existe la región buscada: " + nombreRegion);
         }
     }
-
+    
+    public Persona buscarPersona(String rut, String nombreRegion)
+    {
+        Region region = buscarRegion(nombreRegion);
+        return region.buscarPersona(rut);
+    }
+    
+    public Persona buscarPersona(String rut)
+    {
+        for(int i = 0; i < regiones.size(); i++){
+            Region aux = regiones.get(i);
+            if(aux.buscarPersona(rut) != null)
+                return aux.buscarPersona(rut);
+        }
+        return null;
+    }
+    
     public String[][] mostrarDatosPoblacionEnRegion(String nombreRegion) {
         Region region = buscarRegion(nombreRegion);
         if (region != null) {

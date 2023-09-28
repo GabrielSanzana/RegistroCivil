@@ -44,7 +44,7 @@ public class ConjuntoPersonas {
     public boolean agregarPersona(String rut, String nombre, int estado, String fNac, String def) {
         if (mapaPers.containsKey(rut))
             return false;
-        if (def == null) {
+        if (def == null || def.equals("") == true) {
             if (estado != 0)
                 agregarPersona(rut, nombre, fNac, estado);
             else
@@ -58,6 +58,7 @@ public class ConjuntoPersonas {
         totalPersonas++;
         return true;
     }
+    
 
     public void agregarPersona(String rut, String nombre, String fNac) {
         Persona aux = new Persona(rut, nombre, fNac);
@@ -78,7 +79,22 @@ public class ConjuntoPersonas {
     public int getCant() {
         return totalPersonas;
     }
-
+    
+    public HashMap<String, ArrayList<Persona>> getMapas(int i) {
+        switch (i) {
+            case 0:
+                return mapaNombre;
+            case 1:
+                return mapaEstadoCivil;
+            case 2:
+                return mapaFechaNacimiento;
+            case 3:
+                return mapaDefuncion;
+            default:
+                // En caso de un valor de 'i' no válido, puedes manejarlo de acuerdo a tus necesidades
+                return null;
+        }
+    }
     public String[][] mostrarPersonas() {
         String[][] arr = new String[personas.size()][5];
         for (int i = 0; i < personas.size(); i++) {
@@ -91,7 +107,7 @@ public class ConjuntoPersonas {
         }
         return arr;
     }
-
+    
     private void actualizarMapas(Persona persona, boolean eliminar) {
       String rut = persona.getRut();
       String nombre = persona.getNombre();
@@ -140,8 +156,6 @@ public class ConjuntoPersonas {
             mapaEstadoCivil.get(estadoCivil).remove(persona);
             mapaFechaNacimiento.get(fechaNacimiento).remove(persona);
             mapaDefuncion.get(defuncion).remove(persona);
-            
-          
     }
   }
   
