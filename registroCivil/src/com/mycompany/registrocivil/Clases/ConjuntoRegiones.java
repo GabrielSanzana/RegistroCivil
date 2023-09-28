@@ -49,18 +49,22 @@ public class ConjuntoRegiones {
         return mapaRegiones.get(n);
     }
     
-    public void agregarRegion(String nombreRegion) {
+    public boolean agregarRegion(String nombreRegion) {
         Region nuevaRegion = new Region(nombreRegion);
         regiones.add(nuevaRegion);
         mapaRegiones.put(nombreRegion, nuevaRegion);
         totalRegiones++;
-        System.out.println("Se ha agregado exitosamente la región: " + nombreRegion + ".");
+        exportarCSVsTodasLasRegiones();
+        return true;
+
     }
     
      public void agregarRegion(Region region) {
         regiones.add(region);
         mapaRegiones.put(region.getName(), region);
         totalRegiones++;
+        exportarCSVsTodasLasRegiones();
+
     }
     
 
@@ -71,6 +75,7 @@ public class ConjuntoRegiones {
             return;
         }
         region.agregarPersona(rut, nombre, estado,fNac, def);
+        exportarCSVsTodasLasRegiones();
     }
     
     public int getTotalRegiones() {
@@ -88,6 +93,8 @@ public class ConjuntoRegiones {
         } else {
             System.out.println("No existe la región buscada: " + nombreRegion);
         }
+        exportarCSVsTodasLasRegiones();
+
     }
 
     public void cargarCSVsDesdeCarpeta() {
@@ -152,6 +159,7 @@ public class ConjuntoRegiones {
             {
                 persona = aux.obtenerPersona(r);
                 aux.eliminarPersona(persona.getRut());
+                exportarCSVsTodasLasRegiones();
                 return persona;
             }
                 
@@ -166,6 +174,7 @@ public class ConjuntoRegiones {
         {
             persona = aux.obtenerPersona(r);
             aux.eliminarPersona(persona.getRut());
+            exportarCSVsTodasLasRegiones();
             return aux.obtenerPersona(r);
         }
                 
@@ -205,4 +214,16 @@ public class ConjuntoRegiones {
         
         return null;
     }  
+    
+    public String[][] mostrarDatosPoblacionVotanteEnRegion(String nombreRegion) {
+        Region region = buscarRegion(nombreRegion);
+        if (region != null) {
+            return region.mostrarDatosPoblacionVotante();
+        }
+        
+        return null;
+    }  
+    
+    
+    
 }

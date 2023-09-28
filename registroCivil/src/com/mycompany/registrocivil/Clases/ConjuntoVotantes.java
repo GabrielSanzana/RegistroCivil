@@ -49,5 +49,19 @@ public class ConjuntoVotantes extends ConjuntoPersonas {
         return totalVotantes;
     }
     
-    
+    @Override
+    public String[][] mostrarPersonas() {
+        String[][] arr = new String[votantes.size()][7];
+        for (int i = 0; i < votantes.size(); i++) {
+            Votante persona = votantes.get(i);
+            arr[i][0] = persona.getRut();
+            arr[i][1] = persona.getNombre();
+            arr[i][2] = persona.getFNac();
+            arr[i][3] = persona.getDef();
+            arr[i][4] = persona.getEstadoCivil();
+            arr[i][5] = ""+persona.getAnioRegistro();
+            arr[i][6] = persona.getPartido();
+        }
+        return arr;
+    }
 }

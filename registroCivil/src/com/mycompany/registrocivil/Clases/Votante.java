@@ -10,8 +10,8 @@ package com.mycompany.registrocivil.Clases;
  * @author patru
  */
 public class Votante extends Persona {
-    int anioRegistro;
-    String partido;
+    private int anioRegistro;
+    private String partido;
     public Votante(String rut, String nombre,int estado,String fNac,String def,  int anio, String p)
     {
         super(rut,nombre,estado,fNac, def);

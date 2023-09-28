@@ -61,6 +61,7 @@ public class Region
         int añoActual = Integer.parseInt(año);
         votantes.agregarVotante(rut, nombre, estado, fNac, defuncion,añoActual-esMayorQue18(fNac) + 18, "No está registrado en un partido" );
       }
+    exportarVotantesACSV();
     return personas.agregarPersona(rut, nombre, estado,fNac, defuncion);
   }
 
@@ -68,6 +69,8 @@ public class Region
 
   public Persona eliminarPersona(String rut)
   {
+    votantes.eliminarVotante(rut);
+    exportarVotantesACSV();
     return personas.eliminarPersona(rut);
   }
 
@@ -89,7 +92,12 @@ public class Region
   {
      return personas.mostrarPersonas();
   }
-
+  
+  public String[][] mostrarDatosPoblacionVotante()
+  {
+     return votantes.mostrarPersonas();
+  }
+  
   public void cargarPersonasDesdeCSV(String filePath) throws IOException {
       BufferedReader br = new BufferedReader(new FileReader(filePath));
       String line;
@@ -253,20 +261,5 @@ public class Region
   public ConjuntoPersonas getConjuntoPersonas(){
           return personas;
   }
-  
-  /*
-    
-  public void registroNacimiento(){
-    GENERAR UN RUT O SIMPLEMENTE QUE YA SEA EXISTENTE? SI YA EXISTE EL RUT
-    DA LO MISMO, LO METEMOS A AGREGAR PERSONA Y XAO
-  }
-  
-  
-  AGREGAR CARGAR CSV PA CARGAR PERSONAS 
 
-    public void generarActas(String rut){
-    //pasaporte, acta de nacimiento, acta de defuncion, certificados, etc
-
-  }
-  */
 }
