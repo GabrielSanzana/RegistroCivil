@@ -5,7 +5,7 @@
 package com.mycompany.registrocivil;
 import com.mycompany.registrocivil.Clases.ConjuntoRegiones;
 import com.mycompany.registrocivil.Clases.Region;
-import java.lang.*;
+import com.mycompany.excepciones.AgregarException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -263,7 +263,11 @@ public class VentanaAgregar extends javax.swing.JFrame {
         btnAgregar.setText("Agregar");
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnAgregarMousePressed(evt);
+                try {btnAgregarMousePressed(evt);}
+                catch(AgregarException e)
+                {
+                    JOptionPane.showMessageDialog(null, "Los datos ingresados en el campo "+e.getExcepction()+" son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -551,55 +555,58 @@ public class VentanaAgregar extends javax.swing.JFrame {
     private void GobiernoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GobiernoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_GobiernoMousePressed
-
-    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
-        Object selectedItem = comboBoxRegiones.getSelectedItem();
-        String nombre = casillaNombre.getText();
-        String rut = casillaRut.getText();
-        String selectedRegion = selectedItem.toString();
+      
+    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) throws AgregarException{//GEN-FIRST:event_btnAgregarMousePressed
+        Object selectedItem;
+        String nombre;
+        String rut;
+        String selectedRegion;
+        selectedItem = comboBoxRegiones.getSelectedItem();
+        nombre = casillaNombre.getText();       
+        rut = casillaRut.getText();
+        selectedRegion = selectedItem.toString();
+        Date fechaSeleccionada = casillaNacimiento.getDate();       
         
-        if (rut.equals("") || nombre.equals("") || selectedRegion.equals("Seleccione") || casillaNacimiento.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
+        if(nombre.equals("") || rut.equals("") || selectedRegion.equals("Seleccione") || fechaSeleccionada == null)
+        {
             casillaNombre.setText("");
             casillaRut.setText("");
             casillaDefuncion.setText("");
             casillaNacimiento.setDate(null);
             comboBoxRegiones.setSelectedIndex(0);
+            throw new AgregarException(rut, nombre, selectedRegion, fechaSeleccionada);
         }
-        else
-        {
-            Region region = conjuntoRegiones.buscarRegion(selectedRegion);
-            SimpleDateFormat formatoFecha;
-            String fechaFormateada = null;
-            Date fechaSeleccionada = casillaNacimiento.getDate();
-            if (fechaSeleccionada != null) {
-                formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                fechaFormateada = formatoFecha.format(fechaSeleccionada);
-            }
+        
+        Region region = conjuntoRegiones.buscarRegion(selectedRegion);
+        SimpleDateFormat formatoFecha;          
+        formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaFormateada = formatoFecha.format(fechaSeleccionada);
+            
             //el usuario selecciona del combobox y devuelve un int
-            String estadoSeleccionado = casillaEstado.getSelectedItem().toString();
-            int estadoNumerico;
-            if (estadoSeleccionado.equals("Soltero")) 
-              estadoNumerico = 0;
-            else if (estadoSeleccionado.equals("Casado")) 
-              estadoNumerico = 1;
-            else if (estadoSeleccionado.equals("Divorciado")) 
-              estadoNumerico = 2;
-            else if (estadoSeleccionado.equals("Viudo")) 
-              estadoNumerico = 3;
-            else if (estadoSeleccionado.equals("Separado")) 
-              estadoNumerico = 4;
-            else
-              estadoNumerico = 0; //Caso en el que no se selecciona nada.
+        String estadoSeleccionado = casillaEstado.getSelectedItem().toString();
+        int estadoNumerico;
+        if (estadoSeleccionado.equals("Soltero")) 
+            estadoNumerico = 0;
+        else if (estadoSeleccionado.equals("Casado")) 
+            estadoNumerico = 1;
+        else if (estadoSeleccionado.equals("Divorciado")) 
+            estadoNumerico = 2;
+        else if (estadoSeleccionado.equals("Viudo")) 
+            estadoNumerico = 3;
+        else if (estadoSeleccionado.equals("Separado")) 
+            estadoNumerico = 4;
+        else
+            estadoNumerico = 0; //Caso en el que no se selecciona nada.
 
-            String defuncion = casillaDefuncion.getText();
+        String defuncion = casillaDefuncion.getText();
 
-            boolean seAgrego = region.agregarPersona(rut,nombre,estadoNumerico,fechaFormateada,defuncion);
-            if (seAgrego)
-            {
-                JOptionPane.showMessageDialog(null, "Persona agregada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            }
+        boolean seAgrego = region.agregarPersona(rut,nombre,estadoNumerico,fechaFormateada,defuncion);
+        if (seAgrego)
+        {
+            conjuntoRegiones.exportarCSVsTodasLasRegiones();
+            JOptionPane.showMessageDialog(null, "Persona agregada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }
+        
         casillaNombre.setText("");
         casillaRut.setText("");
         casillaNacimiento.setDate(null);
