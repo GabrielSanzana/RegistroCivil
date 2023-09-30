@@ -85,11 +85,11 @@ public class ConjuntoPersonas {
             case 0:
                 return mapaNombre;
             case 1:
-                return mapaEstadoCivil;
-            case 2:
                 return mapaFechaNacimiento;
-            case 3:
+            case 2:
                 return mapaDefuncion;
+            case 3:
+                return mapaEstadoCivil;
             default:
                 // En caso de un valor de 'i' no válido, puedes manejarlo de acuerdo a tus necesidades
                 return null;

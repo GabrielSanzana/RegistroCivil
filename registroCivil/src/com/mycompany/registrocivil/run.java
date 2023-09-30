@@ -12,7 +12,8 @@ public class run {
     public static void main(String [] args)
     {
         ConjuntoRegiones conjuntoRegiones = new ConjuntoRegiones();
-        conjuntoRegiones.cargarCSVsDesdeCarpeta();
+        conjuntoRegiones.cargarXlsDesdeCarpeta();
+        conjuntoRegiones.cargarVotantesXlsDesdeCarpeta();
         VentanaPrincipal frame = new VentanaPrincipal(conjuntoRegiones);
         frame.setVisible(true);
     }    

@@ -19,6 +19,8 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
         initComponents();
         casillaNombreDatos.setEnabled(false);
         casillaCantidad.setEnabled(false);
+        AgregarRegion.setEnabled(false);
+        lblAgregarRegion.setEnabled(false);
     }
 
     /**
@@ -44,6 +46,12 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
         lblEditar = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
         Eliminar = new javax.swing.JLabel();
+        AgregarRegion = new javax.swing.JLabel();
+        lblAgregarRegion = new javax.swing.JLabel();
+        EliminarRegion = new javax.swing.JLabel();
+        lblEliminarRegion = new javax.swing.JLabel();
+        EditarRegion = new javax.swing.JLabel();
+        lblEditarRegion = new javax.swing.JLabel();
         PanelGobierno = new javax.swing.JPanel();
         Gobierno = new javax.swing.JLabel();
         Cuadro = new javax.swing.JPanel();
@@ -104,16 +112,31 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
         lblMostrarListado.setForeground(new java.awt.Color(255, 255, 255));
         lblMostrarListado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMostrarListado.setText("Mostrar Listado");
+        lblMostrarListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblMostrarListadoMousePressed(evt);
+            }
+        });
 
         lblAgregarPersona.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblAgregarPersona.setForeground(new java.awt.Color(255, 255, 255));
         lblAgregarPersona.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAgregarPersona.setText("Agregar Persona");
+        lblAgregarPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAgregarPersonaMousePressed(evt);
+            }
+        });
 
         lblInicio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblInicio.setForeground(new java.awt.Color(255, 255, 255));
         lblInicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblInicio.setText("Inicio");
+        lblInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblInicioMousePressed(evt);
+            }
+        });
 
         Inicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Inicio.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/inicio.png"));
@@ -148,9 +171,73 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
         lblEliminar.setForeground(new java.awt.Color(255, 255, 255));
         lblEliminar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblEliminar.setText("Eliminar Persona");
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
 
         Eliminar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Eliminar.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/eliminar.png"));
+        Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EliminarMousePressed(evt);
+            }
+        });
+
+        AgregarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AgregarRegion.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/agregarRegion.png"));
+        AgregarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                AgregarRegionMousePressed(evt);
+            }
+        });
+
+        lblAgregarRegion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblAgregarRegion.setForeground(new java.awt.Color(255, 255, 255));
+        lblAgregarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAgregarRegion.setText("Agregar Región");
+        lblAgregarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAgregarRegionMousePressed(evt);
+            }
+        });
+
+        EliminarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        EliminarRegion.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/eliminarRegion.png"));
+        EliminarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EliminarRegionMousePressed(evt);
+            }
+        });
+
+        lblEliminarRegion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblEliminarRegion.setForeground(new java.awt.Color(255, 255, 255));
+        lblEliminarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEliminarRegion.setText("Eliminar Región");
+        lblEliminarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarRegionMousePressed(evt);
+            }
+        });
+
+        EditarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        EditarRegion.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/editarRegion.png"));
+        EditarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EditarRegionMousePressed(evt);
+            }
+        });
+
+        lblEditarRegion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblEditarRegion.setForeground(new java.awt.Color(255, 255, 255));
+        lblEditarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEditarRegion.setText("Editar Región");
+        lblEditarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEditarRegionMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MenuLateralLayout = new javax.swing.GroupLayout(MenuLateral);
         MenuLateral.setLayout(MenuLateralLayout);
@@ -167,15 +254,21 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
                             .addComponent(Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AgregarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EliminarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EditarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAgregarPersona)
                             .addComponent(lblMostrarListado)
                             .addComponent(lblInicio)
                             .addComponent(lblEditar)
-                            .addComponent(lblEliminar))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblEliminar)
+                            .addComponent(lblAgregarRegion)
+                            .addComponent(lblEliminarRegion)
+                            .addComponent(lblEditarRegion))))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         MenuLateralLayout.setVerticalGroup(
             MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +295,19 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
                 .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(369, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AgregarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAgregarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EliminarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEliminarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EditarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEditarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         Fondo.add(MenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 630));
@@ -282,7 +387,7 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
         btnAgregar.setText("Agregar");
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                 try {btnAgregarMousePressed(evt);}
+                try {btnAgregarMousePressed(evt);}
                 catch(AgregarRegionException e)
                 {
                     JOptionPane.showMessageDialog(null, "Los datos ingresados en el campo "+e.getExcepction()+" son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
@@ -347,12 +452,12 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(casillaCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCantPersonas))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelDatosLayout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addComponent(lblTituloDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(163, Short.MAX_VALUE)))
+                    .addContainerGap(109, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout CuadroLayout = new javax.swing.GroupLayout(Cuadro);
@@ -386,7 +491,7 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
                     .addComponent(panelAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(89, 89, 89))
         );
 
         Fondo.add(Cuadro, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 770, 600));
@@ -410,7 +515,6 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
     private void IconoMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IconoMenuMousePressed
         int velocidadAnimacion = 4; // Velocidad de la animación (ajusta según tus necesidades)
         int desplazamientoFinal = -160; // La cantidad que quieres desplazar hacia la izquierda
-        
         // Cambia la dirección de la animación en función del estado actual del menú
         int desplazamientoInicial = menuDesplegado ? desplazamientoFinal : 0;
         int desplazamientoObjetivo = menuDesplegado ? 0 : desplazamientoFinal;
@@ -421,7 +525,10 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
             lblMostrarListado.setText("");
             lblInicio.setText(""); 
             lblEliminar.setText(""); 
-            lblEditar.setText(""); 
+            lblEditar.setText("");
+            lblAgregarRegion.setText(""); 
+            lblEliminarRegion.setText(""); 
+            lblEditarRegion.setText(""); 
         }
         
         Timer timer = new Timer(10, new ActionListener() {
@@ -432,6 +539,9 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
                 if (desplazamientoActual != desplazamientoObjetivo) {
                     MenuLateral.setLocation(desplazamientoActual, MenuLateral.getY());
                     Agregar.setLocation(-desplazamientoActual, Agregar.getY());
+                    AgregarRegion.setLocation(-desplazamientoActual, AgregarRegion.getY());
+                    EliminarRegion.setLocation(-desplazamientoActual, EliminarRegion.getY());
+                    EditarRegion.setLocation(-desplazamientoActual, EditarRegion.getY());
                     Inicio.setLocation(-desplazamientoActual, Inicio.getY());
                     Listar.setLocation(-desplazamientoActual, Listar.getY());
                     Eliminar.setLocation(-desplazamientoActual, Eliminar.getY());
@@ -440,11 +550,27 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
                         Cuadro.setLocation(Cuadro.getX() - velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() + velocidadAnimacion, Cuadro.getHeight());
                         PanelGobierno.setLocation(PanelGobierno.getX() - velocidadAnimacion, PanelGobierno.getY());
+                        btnAgregar.setLocation(btnAgregar.getX() + velocidadAnimacion, btnAgregar.getY());
+                        btnLimpiar.setLocation(btnLimpiar.getX() + velocidadAnimacion, btnLimpiar.getY());
+                        panelAgregar.setSize(panelAgregar.getWidth() + velocidadAnimacion, panelAgregar.getHeight());
+                        panelDatos.setSize(panelDatos.getWidth() + velocidadAnimacion, panelDatos.getHeight());
+                        casillaNombre.setSize(casillaNombre.getWidth() + velocidadAnimacion, casillaNombre.getHeight());
+                        casillaNombreDatos.setSize(casillaNombreDatos.getWidth() + velocidadAnimacion, casillaNombreDatos.getHeight());
+                        casillaCantidad.setSize(casillaCantidad.getWidth() + velocidadAnimacion, casillaCantidad.getHeight());
+                        
                     } else {
                         Cuadro.setLocation(Cuadro.getX() + velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() - velocidadAnimacion, Cuadro.getHeight());
                         PanelGobierno.setLocation(PanelGobierno.getX() + velocidadAnimacion, PanelGobierno.getY());
                         PanelGobierno.setSize(PanelGobierno.getWidth(), PanelGobierno.getHeight());
+                        btnAgregar.setLocation(btnAgregar.getX() - velocidadAnimacion, btnAgregar.getY());
+                        btnLimpiar.setLocation(btnLimpiar.getX() - velocidadAnimacion, btnLimpiar.getY());
+                        panelAgregar.setSize(panelAgregar.getWidth() - velocidadAnimacion, panelAgregar.getHeight());
+                        panelDatos.setSize(panelDatos.getWidth() - velocidadAnimacion, panelDatos.getHeight());
+                        casillaNombre.setSize(casillaNombre.getWidth() - velocidadAnimacion, casillaNombre.getHeight());
+                        casillaNombreDatos.setSize(casillaNombreDatos.getWidth() - velocidadAnimacion, casillaNombreDatos.getHeight());
+                        casillaCantidad.setSize(casillaCantidad.getWidth() - velocidadAnimacion, casillaCantidad.getHeight());
+                        
                     }
                     if (menuDesplegado) {
                         desplazamientoActual += velocidadAnimacion;
@@ -463,7 +589,10 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
                             lblMostrarListado.setText("Mostrar Listado");
                             lblInicio.setText("Inicio");
                             lblEliminar.setText("Eliminar Persona"); 
-                            lblEditar.setText("Cambiar E. Civil"); 
+                            lblEditar.setText("Editar Persona"); 
+                            lblEditarRegion.setText("Editar Región");
+                            lblAgregarRegion.setText("Agregar Región");
+                            lblEliminarRegion.setText("EliminarRegión"); 
                         }
                         });
                         textTimer.setRepeats(false); // Ejecutar una sola vez
@@ -514,16 +643,87 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
             casillaCantidad.setText("");
             throw new AgregarRegionException(nombre);
         }
-        conjuntoRegiones.agregarRegion(nombre);
+        boolean seAgrego = conjuntoRegiones.agregarRegion(nombre);
+        if(seAgrego)
+        {
+            conjuntoRegiones.exportarXlsTodasLasRegiones();
+            conjuntoRegiones.exportarXlsVotantesTodasLasRegiones();
+            JOptionPane.showMessageDialog(null, "Región agregada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            casillaNombreDatos.setText(nombre);
+            casillaCantidad.setText(String.valueOf(conjuntoRegiones.getCantidadPersonasEnRegion(nombre)));
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "No se pudo agregar la región porque ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         casillaNombre.setText("");
-        casillaNombreDatos.setText(nombre);
-        casillaCantidad.setText(String.valueOf(conjuntoRegiones.getCantidadPersonasEnRegion(nombre)));
-        JOptionPane.showMessageDialog(null, "Persona agregada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAgregarMousePressed
 
     private void btnLimpiarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMousePressed
         casillaNombre.setText("");
     }//GEN-LAST:event_btnLimpiarMousePressed
+
+    private void AgregarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarRegionMousePressed
+
+    }//GEN-LAST:event_AgregarRegionMousePressed
+
+    private void lblAgregarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarRegionMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblAgregarRegionMousePressed
+
+    private void EliminarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarRegionMousePressed
+        VentanaEliminarRegion ven = new VentanaEliminarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EliminarRegionMousePressed
+
+    private void lblEliminarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRegionMousePressed
+        VentanaEliminarRegion ven = new VentanaEliminarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblEliminarRegionMousePressed
+
+    private void EditarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarRegionMousePressed
+        VentanaEditarRegion ven = new VentanaEditarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EditarRegionMousePressed
+
+    private void lblEditarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarRegionMousePressed
+        VentanaEditarRegion ven = new VentanaEditarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblEditarRegionMousePressed
+
+    private void lblInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMousePressed
+        VentanaPrincipal ven = new VentanaPrincipal(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblInicioMousePressed
+
+    private void lblAgregarPersonaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarPersonaMousePressed
+        VentanaAgregarPersona ven = new VentanaAgregarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblAgregarPersonaMousePressed
+
+    private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+        VentanaEliminarPersona ven = new VentanaEliminarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblEliminarMousePressed
+
+    private void EliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMousePressed
+        VentanaEliminarPersona ven = new VentanaEliminarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EliminarMousePressed
+
+    private void lblMostrarListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMostrarListadoMousePressed
+        VentanaListarPersona ven = new VentanaListarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblMostrarListadoMousePressed
 
 
 // Code adding the component to the parent container - not shown here
@@ -573,9 +773,12 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Agregar;
+    private javax.swing.JLabel AgregarRegion;
     private javax.swing.JPanel Cuadro;
     private javax.swing.JLabel Editar;
+    private javax.swing.JLabel EditarRegion;
     private javax.swing.JLabel Eliminar;
+    private javax.swing.JLabel EliminarRegion;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Gobierno;
     private javax.swing.JLabel IconoMenu;
@@ -590,9 +793,12 @@ public class VentanaAgregarRegion extends javax.swing.JFrame {
     private javax.swing.JTextField casillaNombreDatos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAgregarPersona;
+    private javax.swing.JLabel lblAgregarRegion;
     private javax.swing.JLabel lblCantPersonas;
     private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEditarRegion;
     private javax.swing.JLabel lblEliminar;
+    private javax.swing.JLabel lblEliminarRegion;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblMostrarListado;
     private javax.swing.JLabel lblNombre;

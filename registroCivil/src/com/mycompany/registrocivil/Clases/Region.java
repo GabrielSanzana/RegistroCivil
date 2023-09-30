@@ -16,6 +16,11 @@ public class Region
       votantes = new ConjuntoVotantes();
   }
   
+  public void setNombre(String nombre)
+  {
+      nombreRegion = nombre;
+  }
+  
   public int getCant()
   {
     return personas.getCant();
@@ -51,6 +56,7 @@ public class Region
         return (int) diferenciaAnios;
     }
   
+  
   public boolean agregarPersona(String rut, String nombre, int estado,String fNac, String defuncion)
   {
       if(esMayorQue18(fNac) >= 18)
@@ -61,7 +67,7 @@ public class Region
         int añoActual = Integer.parseInt(año);
         votantes.agregarVotante(rut, nombre, estado, fNac, defuncion,añoActual-esMayorQue18(fNac) + 18, "No está registrado en un partido" );
       }
-    exportarVotantesACSV();
+    exportarVotantesAXls("CarpetaRegionesVotantes" + File.separator + nombreRegion + ".xls");
     return personas.agregarPersona(rut, nombre, estado,fNac, defuncion);
   }
 
@@ -70,7 +76,7 @@ public class Region
   public Persona eliminarPersona(String rut)
   {
     votantes.eliminarVotante(rut);
-    exportarVotantesACSV();
+    exportarVotantesAXls("CarpetaRegionesVotantes" + File.separator + nombreRegion + ".xls");
     return personas.eliminarPersona(rut);
   }
 
@@ -98,7 +104,7 @@ public class Region
      return votantes.mostrarPersonas();
   }
   
-  public void cargarPersonasDesdeCSV(String filePath) throws IOException {
+  public void cargarPersonasDesdeXls(String filePath) throws IOException {
       BufferedReader br = new BufferedReader(new FileReader(filePath));
       String line;
       while ((line = br.readLine()) != null) {
@@ -120,14 +126,25 @@ public class Region
               String defuncion = parts[4];
               // Llama al método agregarPersona para agregar la persona al conjunto
               personas.agregarPersona(rut, nombre, estadoCivilEntero, fechaNacimiento, defuncion);
+              if(esMayorQue18(fechaNacimiento) >= 18)
+                {
+                  Date fechaActual = new Date();
+                  SimpleDateFormat formato = new SimpleDateFormat("yyyy");
+                  String año = formato.format(fechaActual);
+                  int añoActual = Integer.parseInt(año);
+                  votantes.agregarVotante(rut, nombre, estadoCivilEntero, fechaNacimiento, defuncion,añoActual-esMayorQue18(fechaNacimiento) + 18, "No está registrado en un partido" );
+                }
+    exportarVotantesAXls("CarpetaRegionesVotantes" + File.separator + nombreRegion + ".xls");
           } else {
-              System.err.println("Error: línea CSV mal formada: " + line);
+              System.err.println("Error: línea Xls mal formada: " + line);
           }
       }
       br.close();
   }
   
-  public void exportarPersonasACSV(String filePath) {
+  
+  
+  public void exportarPersonasAXls(String filePath) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
 
@@ -135,9 +152,9 @@ public class Region
             ArrayList<Persona> listaPersonas = personas.getPersonas();
 
             for (int i = 0; i < listaPersonas.size(); i++) {
-                // Construye una línea CSV con los datos de la persona
+                // Construye una línea Xls con los datos de la persona
                 Persona persona = listaPersonas.get(i);
-                String lineaCSV = String.format(
+                String lineaXls = String.format(
                     "%s,%s,%s,%s,%s",
                     persona.getRut(),
                     persona.getNombre(),
@@ -146,21 +163,21 @@ public class Region
                     persona.getDef()
                 );
 
-                // Escribe la línea CSV en el archivo
-                bw.write(lineaCSV);
+                // Escribe la línea Xls en el archivo
+                bw.write(lineaXls);
                 bw.newLine();
             }
 
             // Cierra el BufferedWriter para liberar recursos
             bw.close();
-            System.out.println("Exportación a CSV completada con éxito.");
+            System.out.println("Exportación a Xls completada con éxito.");
         } catch (IOException e) {
-            System.out.println("Error al crear o escribir en el archivo CSV.");
+            System.out.println("Error al crear o escribir en el archivo Xls.");
         }
     }
   
-    public void cargarVotantesDesdeCSV() throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader("CarpetaRegionesVotantes"));
+    public void cargarVotantesDesdeXls(String filePath) throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(filePath) );
         String line;
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(",");
@@ -176,7 +193,6 @@ public class Region
                         break;
                     }
                 }
-
                 String fechaNacimiento = parts[3];
                 String defuncion = parts[4];
                 int anioRegistro = Integer.parseInt(parts[5]);
@@ -185,23 +201,23 @@ public class Region
                 // Llama al método agregarVotante para agregar al votante al conjunto
                 votantes.agregarVotante(rut, nombre, estadoCivilEntero, fechaNacimiento, defuncion, anioRegistro, partidoPolitico);
             } else {
-                System.err.println("Error: línea CSV mal formada: " + line);
+                System.err.println("Error: línea Xls mal formada: " + line);
             }
         }
         br.close();
     }
 
-    public void exportarVotantesACSV( ) {
+    public void exportarVotantesAXls(String destino) {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("CarpetaRegionesVotantes"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(destino));
 
             // Obtener la lista de votantes utilizando el método getVotantes()
             ArrayList<Votante> listaVotantes = votantes.getVotantes();
 
             for (int i = 0; i < listaVotantes.size(); i++) {
-                // Construye una línea CSV con los datos del votante
+                // Construye una línea Xls con los datos del votante
                 Votante votante = listaVotantes.get(i);
-                String lineaCSV = String.format(
+                String lineaXls = String.format(
                     "%s,%s,%s,%s,%s,%s,%s",
                     votante.getRut(),
                     votante.getNombre(),
@@ -212,16 +228,16 @@ public class Region
                     votante.getPartido()
                 );
 
-                // Escribe la línea CSV en el archivo
-                bw.write(lineaCSV);
+                // Escribe la línea Xls en el archivo
+                bw.write(lineaXls);
                 bw.newLine();
             }
 
             // Cierra el BufferedWriter para liberar recursos
             bw.close();
-            System.out.println("Exportación a CSV completada con éxito.");
+            System.out.println("Exportación a Xls completada con éxito.");
         } catch (IOException e) {
-            System.out.println("Error al crear o escribir en el archivo CSV.");
+            System.out.println("Error al crear o escribir en el archivo Xls.");
         }
     }
   
@@ -262,4 +278,12 @@ public class Region
           return personas;
   }
 
+  public int cantPersVotantes(){
+      return votantes.getCant();
+  }
+  
+  public Votante buscarVotante(String rut)
+  {
+      return votantes.buscarVotante(rut);
+  }
 }

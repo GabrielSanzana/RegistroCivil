@@ -4,8 +4,12 @@
  */
 package com.mycompany.registrocivil;
 import com.mycompany.registrocivil.Clases.ConjuntoRegiones;
+import com.mycompany.registrocivil.Clases.ConjuntoFiltrado;
+import com.mycompany.registrocivil.Clases.Region;
+import com.mycompany.excepciones.FiltrarException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -128,6 +132,11 @@ public class VentanaListarPersona extends javax.swing.JFrame {
         lblAgregarPersona.setForeground(new java.awt.Color(255, 255, 255));
         lblAgregarPersona.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAgregarPersona.setText("Agregar Persona");
+        lblAgregarPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAgregarPersonaMousePressed(evt);
+            }
+        });
 
         lblInicio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblInicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -402,8 +411,17 @@ public class VentanaListarPersona extends javax.swing.JFrame {
         });
 
         btnFiltrar.setText("Filtrar");
+        btnFiltrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                try{btnFiltrarMousePressed(evt);}
+                catch(FiltrarException e)
+                {   if(e.getExcepction().equals("vacío"))
+                        JOptionPane.showMessageDialog(null, "El conjunto filtrado está "+e.getExcepction()+". Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
-        comboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Fecha de nacimiento", "Defunción", "Estado civil" }));
+        comboBoxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Fecha de nacimiento", "Defunción", "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a", "Separado/a", "Población votante" }));
 
         lblFiltrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblFiltrar.setText("Filtrar:");
@@ -546,14 +564,19 @@ public class VentanaListarPersona extends javax.swing.JFrame {
                     if (menuDesplegado == false) {               
                         Cuadro.setLocation(Cuadro.getX() - velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() + velocidadAnimacion, Cuadro.getHeight());
-                        PanelGobierno.setLocation(PanelGobierno.getX() - velocidadAnimacion, PanelGobierno.getY());
+                        PanelGobierno.setLocation(PanelGobierno.getX() - 2, PanelGobierno.getY());
+                        panelEliminar.setSize(panelEliminar.getWidth() + velocidadAnimacion, panelEliminar.getHeight());
+                        casillaNombreDatos.setSize(casillaNombreDatos.getWidth() + velocidadAnimacion, casillaNombreDatos.getHeight());
+                        btnBuscar.setLocation(btnBuscar.getX() + velocidadAnimacion, btnBuscar.getY());
                         
                     } else {
                         Cuadro.setLocation(Cuadro.getX() + velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() - velocidadAnimacion, Cuadro.getHeight());
-                        PanelGobierno.setLocation(PanelGobierno.getX() + velocidadAnimacion, PanelGobierno.getY());
-                        PanelGobierno.setSize(PanelGobierno.getWidth(), PanelGobierno.getHeight());
-                        
+                        PanelGobierno.setLocation(PanelGobierno.getX() + 2, PanelGobierno.getY());
+                        panelEliminar.setSize(panelEliminar.getWidth() - velocidadAnimacion, panelEliminar.getHeight());
+                        tablaPersonas.setSize(tablaPersonas.getWidth() - velocidadAnimacion, tablaPersonas.getHeight());
+                        casillaNombreDatos.setSize(casillaNombreDatos.getWidth() - velocidadAnimacion, casillaNombreDatos.getHeight());
+                        btnBuscar.setLocation(btnBuscar.getX() - velocidadAnimacion, btnBuscar.getY());
                     }
                     if (menuDesplegado) {
                         desplazamientoActual += velocidadAnimacion;
@@ -604,7 +627,9 @@ public class VentanaListarPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMostrarListadoMousePressed
 
     private void lblInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMousePressed
-        // TODO add your handling code here:
+        VentanaPrincipal ven = new VentanaPrincipal(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lblInicioMousePressed
 
     private void InicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InicioMousePressed
@@ -626,11 +651,15 @@ public class VentanaListarPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_EditarMousePressed
 
     private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
-        // TODO add your handling code here:
+        VentanaEliminarPersona ven = new VentanaEliminarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lblEliminarMousePressed
 
     private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
-        // TODO add your handling code here:
+        VentanaEditarPersona ven = new VentanaEditarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lblEditarMousePressed
 
     private void GobiernoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GobiernoMousePressed
@@ -661,6 +690,12 @@ public class VentanaListarPersona extends javax.swing.JFrame {
                 rowCount++;
             }
         }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "No se proporcionó una región válida.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        comboBoxFiltro.setSelectedIndex(0);
+        casillaNombreDatos.setText("");
     }//GEN-LAST:event_btnBuscarMousePressed
 
     private void AgregarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarRegionMousePressed
@@ -670,24 +705,139 @@ public class VentanaListarPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_AgregarRegionMousePressed
 
     private void lblAgregarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarRegionMousePressed
-        // TODO add your handling code here:
+        VentanaAgregarRegion ven = new VentanaAgregarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lblAgregarRegionMousePressed
 
     private void EliminarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarRegionMousePressed
-        // TODO add your handling code here:
+        VentanaEliminarRegion ven = new VentanaEliminarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_EliminarRegionMousePressed
 
     private void lblEliminarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRegionMousePressed
-        // TODO add your handling code here:
+        VentanaEliminarRegion ven = new VentanaEliminarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lblEliminarRegionMousePressed
 
     private void EditarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarRegionMousePressed
-        // TODO add your handling code here:
+        VentanaEditarRegion ven = new VentanaEditarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_EditarRegionMousePressed
 
     private void lblEditarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarRegionMousePressed
-        // TODO add your handling code here:
+        VentanaEditarRegion ven = new VentanaEditarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lblEditarRegionMousePressed
+
+    private void btnFiltrarMousePressed(java.awt.event.MouseEvent evt) throws FiltrarException{//GEN-FIRST:event_btnFiltrarMousePressed
+        Object selectedItem = comboBoxRegiones.getSelectedItem();
+        Object selectedFiltro = comboBoxFiltro.getSelectedItem();
+        String selectedRegion = selectedItem.toString();
+        String filtro = selectedFiltro.toString();
+        String []nada = {"","","","",""}; 
+        DefaultTableModel model = (DefaultTableModel) tablaPersonas.getModel();
+        model.setColumnCount(5);
+
+        String entrada = casillaNombreDatos.getText();
+        if (!selectedRegion.equals("Seleccione")) {
+            String[][] arr = null; // Declarar la variable fuera del bloque condicional
+
+            if (!filtro.equals("Población votante")) {
+                ConjuntoFiltrado conjFiltro = new ConjuntoFiltrado(conjuntoRegiones.buscarRegion(selectedRegion), filtro, entrada);               
+                if(conjFiltro.mostrarPersonas() == null)
+                {
+                    model = (DefaultTableModel) tablaPersonas.getModel();
+                    int rowCount = model.getRowCount();
+                    while (rowCount < 17) {
+                        model.addRow(nada); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
+                        rowCount++;
+                    }
+                    comboBoxRegiones.setSelectedIndex(0);
+                    comboBoxFiltro.setSelectedIndex(0);
+                    casillaNombreDatos.setText("");
+                    throw new FiltrarException(arr);
+                }
+                arr = conjFiltro.mostrarPersonas();
+                            // Limpiar la tabla antes de agregar nuevos datos
+                model.setRowCount(0);
+
+                // Agregar las filas del arreglo a la tabla
+                for (String[] fila : arr) {
+                    model.addRow(fila);
+                }
+
+                // Completar con filas vacías si es necesario
+                int rowCount = model.getRowCount();
+                while (rowCount < 17) {
+                    model.addRow(nada); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
+                    rowCount++;
+                }
+            } else {
+                model.setColumnCount(5);
+                String []nada2 = {"","","","","","",""};
+                Region aux = conjuntoRegiones.buscarRegion(selectedRegion);
+                model.addColumn("Año registro");
+                model.addColumn("Partido inscrito");
+                if(aux == null)
+                {
+                    model = (DefaultTableModel) tablaPersonas.getModel();
+ 
+                    int rowCount = model.getRowCount();
+                    while (rowCount < 17) {
+                        model.addRow(nada2); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
+                        rowCount++;
+                    }
+                    comboBoxRegiones.setSelectedIndex(0);
+                    comboBoxFiltro.setSelectedIndex(0);
+                    casillaNombreDatos.setText("");
+                    throw new FiltrarException(arr);
+                }
+                arr = aux.mostrarDatosPoblacionVotante();
+
+                                // Limpiar la tabla antes de agregar nuevos datos
+                model.setRowCount(0);
+
+                // Agregar las filas del arreglo a la tabla
+                for (String[] fila : arr) {
+                    model.addRow(fila);
+                }
+    
+                // Completar con filas vacías si es necesario
+                int rowCount = model.getRowCount();
+                while (rowCount < 17) {
+                    model.addRow(nada2); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
+                    rowCount++;
+                }
+                
+                
+            }
+            
+                
+        }
+        else
+        {
+            model = (DefaultTableModel) tablaPersonas.getModel();
+
+            int rowCount = model.getRowCount();
+            while (rowCount < 17) {
+                model.addRow(nada); // Agrega una fila vacía con la misma cantidad de columnas que en el arreglo 'arr'
+                rowCount++;
+            }
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una región", "Error al ingresar región", JOptionPane.ERROR_MESSAGE);
+        }
+        casillaNombreDatos.setText("");
+    }//GEN-LAST:event_btnFiltrarMousePressed
+
+    private void lblAgregarPersonaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarPersonaMousePressed
+        VentanaAgregarPersona ven = new VentanaAgregarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblAgregarPersonaMousePressed
 
     /**
      * @param args the command line arguments

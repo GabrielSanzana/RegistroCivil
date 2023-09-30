@@ -21,6 +21,8 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
         this.entrada = e;
     }
     
+    
+    
     @Override
     public String[][] mostrarPersonas() {
         String[] aux = { "Nombre", "Fecha de nacimiento", "Defunción", "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a", "Separado/a" };
@@ -36,6 +38,8 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
         switch (ee) {
             case 0:
                 filtrado = r.getConjuntoPersonas().getMapas(0).get(entrada);
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
@@ -48,6 +52,8 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
                 break;
             case 1:
                 filtrado = r.getConjuntoPersonas().getMapas(1).get(entrada);
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
@@ -60,7 +66,10 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
                 break;
             case 2:
                 filtrado = r.getConjuntoPersonas().getMapas(2).get(entrada);
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
+                
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
                     arr[i][0] = persona.getRut();
@@ -72,7 +81,10 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
                 break;
             case 3:
                 filtrado = r.getConjuntoPersonas().getMapas(3).get("Soltero/a");
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
+                
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
                     arr[i][0] = persona.getRut();
@@ -84,7 +96,10 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
                 break;
             case 4:
                 filtrado = r.getConjuntoPersonas().getMapas(3).get("Casado/a");
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
+                
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
                     arr[i][0] = persona.getRut();
@@ -96,7 +111,10 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
                 break;
             case 5:
                 filtrado = r.getConjuntoPersonas().getMapas(3).get("Divorciado/a");
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
+                
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
                     arr[i][0] = persona.getRut();
@@ -108,7 +126,10 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
                 break;
             case 6:
                 filtrado = r.getConjuntoPersonas().getMapas(3).get("Viudo/a");
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
+                
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
                     arr[i][0] = persona.getRut();
@@ -120,7 +141,10 @@ public class ConjuntoFiltrado extends ConjuntoPersonas {
                 break;
             case 7:
                 filtrado = r.getConjuntoPersonas().getMapas(3).get("Separado/a");
+                if(filtrado == null)
+                    return null;
                 arr = new String[filtrado.size()][5];
+                
                 for (int i = 0; i < filtrado.size(); i++) {
                     Persona persona = filtrado.get(i);
                     arr[i][0] = persona.getRut();

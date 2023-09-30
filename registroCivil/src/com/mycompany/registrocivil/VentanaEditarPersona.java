@@ -28,7 +28,6 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
         casillaRutDatos.setEnabled(false);
         casillaNacimiento.setEnabled(false);
         lblEditar.setEnabled(false);
-        casillaPareja.setEnabled(false);
         casillaEstado.setEnabled(false);
         casillaDefuncion.setEnabled(false);
         String [] nombres = conjuntoRegiones.obtenerNombresRegiones();
@@ -59,6 +58,12 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
         lblEditar = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
         Eliminar = new javax.swing.JLabel();
+        AgregarRegion = new javax.swing.JLabel();
+        lblAgregarRegion = new javax.swing.JLabel();
+        EliminarRegion = new javax.swing.JLabel();
+        lblEliminarRegion = new javax.swing.JLabel();
+        EditarRegion = new javax.swing.JLabel();
+        lblEditarRegion = new javax.swing.JLabel();
         PanelGobierno = new javax.swing.JPanel();
         Gobierno = new javax.swing.JLabel();
         Cuadro = new javax.swing.JPanel();
@@ -81,8 +86,6 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
         casillaNacimiento = new com.toedter.calendar.JDateChooser();
         lblDefuncion = new javax.swing.JLabel();
         lblEstadoCivil = new javax.swing.JLabel();
-        lblPareja = new javax.swing.JLabel();
-        casillaPareja = new javax.swing.JTextField();
         casillaDefuncion = new com.toedter.calendar.JDateChooser();
         casillaEstado = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
@@ -131,16 +134,31 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
         lblMostrarListado.setForeground(new java.awt.Color(255, 255, 255));
         lblMostrarListado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMostrarListado.setText("Mostrar Listado");
+        lblMostrarListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblMostrarListadoMousePressed(evt);
+            }
+        });
 
         lblAgregarPersona.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblAgregarPersona.setForeground(new java.awt.Color(255, 255, 255));
         lblAgregarPersona.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAgregarPersona.setText("Agregar Persona");
+        lblAgregarPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAgregarPersonaMousePressed(evt);
+            }
+        });
 
         lblInicio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblInicio.setForeground(new java.awt.Color(255, 255, 255));
         lblInicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblInicio.setText("Inicio");
+        lblInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblInicioMousePressed(evt);
+            }
+        });
 
         Inicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Inicio.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/inicio.png"));
@@ -160,32 +178,81 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
 
         Editar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Editar.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/estado.png"));
-        Editar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                EditarMousePressed(evt);
-            }
-        });
 
         lblEditar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblEditar.setForeground(new java.awt.Color(255, 255, 255));
         lblEditar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblEditar.setText("Editar Persona");
-        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblEditarMousePressed(evt);
-            }
-        });
 
         lblEliminar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblEliminar.setForeground(new java.awt.Color(255, 255, 255));
         lblEliminar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblEliminar.setText("Eliminar Persona");
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
 
         Eliminar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Eliminar.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/eliminar.png"));
         Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 EliminarMousePressed(evt);
+            }
+        });
+
+        AgregarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        AgregarRegion.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/agregarRegion.png"));
+        AgregarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                AgregarRegionMousePressed(evt);
+            }
+        });
+
+        lblAgregarRegion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblAgregarRegion.setForeground(new java.awt.Color(255, 255, 255));
+        lblAgregarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAgregarRegion.setText("Agregar Región");
+        lblAgregarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAgregarRegionMousePressed(evt);
+            }
+        });
+
+        EliminarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        EliminarRegion.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/eliminarRegion.png"));
+        EliminarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EliminarRegionMousePressed(evt);
+            }
+        });
+
+        lblEliminarRegion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblEliminarRegion.setForeground(new java.awt.Color(255, 255, 255));
+        lblEliminarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEliminarRegion.setText("Eliminar Región");
+        lblEliminarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarRegionMousePressed(evt);
+            }
+        });
+
+        EditarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        EditarRegion.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/src/com/mycompany/iconos/editarRegion.png"));
+        EditarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EditarRegionMousePressed(evt);
+            }
+        });
+
+        lblEditarRegion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lblEditarRegion.setForeground(new java.awt.Color(255, 255, 255));
+        lblEditarRegion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEditarRegion.setText("Editar Región");
+        lblEditarRegion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEditarRegionMousePressed(evt);
             }
         });
 
@@ -204,15 +271,21 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                             .addComponent(Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Listar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AgregarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EliminarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EditarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAgregarPersona)
                             .addComponent(lblMostrarListado)
                             .addComponent(lblInicio)
                             .addComponent(lblEditar)
-                            .addComponent(lblEliminar))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblEliminar)
+                            .addComponent(lblAgregarRegion)
+                            .addComponent(lblEliminarRegion)
+                            .addComponent(lblEditarRegion))))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         MenuLateralLayout.setVerticalGroup(
             MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,7 +312,19 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                 .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(369, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AgregarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAgregarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EliminarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEliminarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(EditarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEditarRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         Fondo.add(MenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 630));
@@ -342,10 +427,10 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                 try{btnBuscarMousePressed(evt);}
                 catch(EditarPersonaException e)
                 {
-                    if(e.getExcepction().equals("rut"))
-                        JOptionPane.showMessageDialog(null, "Los datos ingresados en el campo "+e.getExcepction()+" son incorrectos o incompletos. Por favor, verifique los datos e intente nuevamente.", "Error de entrada de datos", JOptionPane.ERROR_MESSAGE);
-                    if(e.getExcepction().equals("persona"))
-                        JOptionPane.showMessageDialog(null, "La persona ingresada no existe" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    if(e.getExcepction().equals("región"))
+                    {
+                        JOptionPane.showMessageDialog(null, "Por favor, seleccione una "+e.getExcepction()+" válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
@@ -385,12 +470,6 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
         lblEstadoCivil.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblEstadoCivil.setText("Estado Civil:");
 
-        lblPareja.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblPareja.setText("Pareja:");
-
-        casillaPareja.setMinimumSize(new java.awt.Dimension(64, 25));
-        casillaPareja.setPreferredSize(new java.awt.Dimension(64, 25));
-
         casillaDefuncion.setPreferredSize(new java.awt.Dimension(85, 25));
 
         casillaEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a", "Separado/a" }));
@@ -418,19 +497,15 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDatosLayout.createSequentialGroup()
-                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEstadoCivil)
-                            .addComponent(lblPareja))
+                        .addComponent(lblEstadoCivil)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(casillaPareja, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(casillaEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(casillaEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(23, 23, 23))
                     .addGroup(panelDatosLayout.createSequentialGroup()
                         .addComponent(lblDefuncion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(casillaDefuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 23, Short.MAX_VALUE))))
             .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelDatosLayout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -456,10 +531,7 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNacimiento)
-                    .addComponent(casillaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(casillaPareja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblPareja)))
+                    .addComponent(casillaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(76, Short.MAX_VALUE))
             .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelDatosLayout.createSequentialGroup()
@@ -485,12 +557,12 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                     .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(CuadroLayout.createSequentialGroup()
                         .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addGap(18, 18, 18)
                         .addGroup(CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         CuadroLayout.setVerticalGroup(
             CuadroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,11 +571,11 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                     .addGroup(CuadroLayout.createSequentialGroup()
                         .addGap(125, 125, 125)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE))
                     .addGroup(CuadroLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,7 +615,10 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
             lblMostrarListado.setText("");
             lblInicio.setText(""); 
             lblEliminar.setText(""); 
-            lblEditar.setText(""); 
+            lblEditar.setText("");
+            lblAgregarRegion.setText(""); 
+            lblEliminarRegion.setText(""); 
+            lblEditarRegion.setText(""); 
         }
         
         Timer timer = new Timer(10, new ActionListener() {
@@ -554,6 +629,9 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                 if (desplazamientoActual != desplazamientoObjetivo) {
                     MenuLateral.setLocation(desplazamientoActual, MenuLateral.getY());
                     Agregar.setLocation(-desplazamientoActual, Agregar.getY());
+                    AgregarRegion.setLocation(-desplazamientoActual, AgregarRegion.getY());
+                    EliminarRegion.setLocation(-desplazamientoActual, EliminarRegion.getY());
+                    EditarRegion.setLocation(-desplazamientoActual, EditarRegion.getY());
                     Inicio.setLocation(-desplazamientoActual, Inicio.getY());
                     Listar.setLocation(-desplazamientoActual, Listar.getY());
                     Eliminar.setLocation(-desplazamientoActual, Eliminar.getY());
@@ -562,11 +640,25 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                         Cuadro.setLocation(Cuadro.getX() - velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() + velocidadAnimacion, Cuadro.getHeight());
                         PanelGobierno.setLocation(PanelGobierno.getX() - velocidadAnimacion, PanelGobierno.getY());
+                        panelBuscar.setSize(panelBuscar.getWidth() + velocidadAnimacion, panelBuscar.getHeight());
+                        panelDatos.setSize(panelDatos.getWidth() + velocidadAnimacion, panelDatos.getHeight());
+                        btnLimpiar.setLocation(btnLimpiar.getX() + velocidadAnimacion, btnLimpiar.getY());
+                        btnBuscar.setLocation(btnBuscar.getX() + velocidadAnimacion, btnBuscar.getY());
+                        btnGuardar.setLocation(btnGuardar.getX() + velocidadAnimacion, btnGuardar.getY());
+                        casillaRut.setSize(casillaRut.getWidth() + velocidadAnimacion, casillaRut.getHeight());
+                        
                     } else {
                         Cuadro.setLocation(Cuadro.getX() + velocidadAnimacion, Cuadro.getY());
                         Cuadro.setSize(Cuadro.getWidth() - velocidadAnimacion, Cuadro.getHeight());
                         PanelGobierno.setLocation(PanelGobierno.getX() + velocidadAnimacion, PanelGobierno.getY());
                         PanelGobierno.setSize(PanelGobierno.getWidth(), PanelGobierno.getHeight());
+                        panelBuscar.setSize(panelBuscar.getWidth() - velocidadAnimacion, panelBuscar.getHeight());
+                        panelDatos.setSize(panelDatos.getWidth() - velocidadAnimacion, panelDatos.getHeight());
+                        btnLimpiar.setLocation(btnLimpiar.getX() - velocidadAnimacion, btnLimpiar.getY());
+                        btnBuscar.setLocation(btnBuscar.getX() - velocidadAnimacion, btnBuscar.getY());
+                        btnGuardar.setLocation(btnGuardar.getX() - velocidadAnimacion, btnGuardar.getY());
+                        casillaRut.setSize(casillaRut.getWidth() - velocidadAnimacion, casillaRut.getHeight());
+                        
                     }
                     if (menuDesplegado) {
                         desplazamientoActual += velocidadAnimacion;
@@ -585,7 +677,10 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
                             lblMostrarListado.setText("Mostrar Listado");
                             lblInicio.setText("Inicio");
                             lblEliminar.setText("Eliminar Persona"); 
-                            lblEditar.setText("Cambiar E. Civil"); 
+                            lblEditar.setText("Editar Persona"); 
+                            lblEditarRegion.setText("Editar Región");
+                            lblAgregarRegion.setText("Agregar Región");
+                            lblEliminarRegion.setText("EliminarRegión"); 
                         }
                         });
                         textTimer.setRepeats(false); // Ejecutar una sola vez
@@ -623,22 +718,12 @@ public class VentanaEditarPersona extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_EliminarMousePressed
 
-    private void EditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarMousePressed
-        VentanaEditarPersona ven = new VentanaEditarPersona(conjuntoRegiones);
-        ven.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_EditarMousePressed
-
-    private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblEditarMousePressed
-
     private void GobiernoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GobiernoMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_GobiernoMousePressed
 
-boolean editando = false;
-Persona personaEditada;
+private boolean editando = false;
+private Persona personaEditada;
     private void btnBuscarMousePressed(java.awt.event.MouseEvent evt) throws EditarPersonaException{//GEN-FIRST:event_btnBuscarMousePressed
         Object selectedItem = comboBoxRegiones.getSelectedItem();
         Date fechaNacimiento;
@@ -651,7 +736,7 @@ Persona personaEditada;
         else
             personaEditada = conjuntoRegiones.buscarPersona(rut);
         
-        if (rut.equals("") || personaEditada == null) {
+        if (rut.equals("") || personaEditada == null){
             casillaRut.setText("");
             comboBoxRegiones.setSelectedIndex(0);
             casillaNombre.setText("");
@@ -779,10 +864,72 @@ Persona personaEditada;
             casillaEstado.setSelectedIndex(0);
             casillaEstado.setEnabled(false);
             casillaNombre.setEnabled(false);
+            conjuntoRegiones.exportarXlsTodasLasRegiones();
+            conjuntoRegiones.exportarXlsVotantesTodasLasRegiones();
             JOptionPane.showMessageDialog(null, "Se ha editado exitosamente a la persona: " + nombre, "Edición Exitosa", JOptionPane.INFORMATION_MESSAGE);
         }
             
     }//GEN-LAST:event_btnGuardarMousePressed
+
+    private void AgregarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarRegionMousePressed
+        VentanaAgregarRegion ven = new VentanaAgregarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_AgregarRegionMousePressed
+
+    private void lblAgregarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarRegionMousePressed
+        VentanaAgregarRegion ven = new VentanaAgregarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblAgregarRegionMousePressed
+
+    private void EliminarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarRegionMousePressed
+        VentanaEliminarRegion ven = new VentanaEliminarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EliminarRegionMousePressed
+
+    private void lblEliminarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRegionMousePressed
+        VentanaEliminarRegion ven = new VentanaEliminarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblEliminarRegionMousePressed
+
+    private void EditarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarRegionMousePressed
+        VentanaEditarRegion ven = new VentanaEditarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EditarRegionMousePressed
+
+    private void lblEditarRegionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarRegionMousePressed
+        VentanaEditarRegion ven = new VentanaEditarRegion(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblEditarRegionMousePressed
+
+    private void lblInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMousePressed
+        VentanaPrincipal ven = new VentanaPrincipal(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblInicioMousePressed
+
+    private void lblAgregarPersonaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarPersonaMousePressed
+        VentanaAgregarPersona ven = new VentanaAgregarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblAgregarPersonaMousePressed
+
+    private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+        VentanaEliminarPersona ven = new VentanaEliminarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblEliminarMousePressed
+
+    private void lblMostrarListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMostrarListadoMousePressed
+        VentanaListarPersona ven = new VentanaListarPersona(conjuntoRegiones);
+        ven.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblMostrarListadoMousePressed
 
     /**
      * @param args the command line arguments
@@ -813,6 +960,18 @@ Persona personaEditada;
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -825,9 +984,12 @@ Persona personaEditada;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Agregar;
+    private javax.swing.JLabel AgregarRegion;
     private javax.swing.JPanel Cuadro;
     private javax.swing.JLabel Editar;
+    private javax.swing.JLabel EditarRegion;
     private javax.swing.JLabel Eliminar;
+    private javax.swing.JLabel EliminarRegion;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Gobierno;
     private javax.swing.JLabel IconoMenu;
@@ -842,23 +1004,24 @@ Persona personaEditada;
     private javax.swing.JComboBox<String> casillaEstado;
     private com.toedter.calendar.JDateChooser casillaNacimiento;
     private javax.swing.JTextField casillaNombre;
-    private javax.swing.JTextField casillaPareja;
     private javax.swing.JTextField casillaRut;
     private javax.swing.JTextField casillaRutDatos;
     private javax.swing.JComboBox<String> comboBoxRegiones;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAgregarPersona;
+    private javax.swing.JLabel lblAgregarRegion;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblDefuncion;
     private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEditarRegion;
     private javax.swing.JLabel lblEliminar;
+    private javax.swing.JLabel lblEliminarRegion;
     private javax.swing.JLabel lblEstadoCivil;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblMostrarListado;
     private javax.swing.JLabel lblNacimiento;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblOpcional;
-    private javax.swing.JLabel lblPareja;
     private javax.swing.JLabel lblRegion;
     private javax.swing.JLabel lblRut;
     private javax.swing.JLabel lblRutDato;

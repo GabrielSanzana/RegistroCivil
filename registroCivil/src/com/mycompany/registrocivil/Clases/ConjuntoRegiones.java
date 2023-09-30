@@ -17,20 +17,37 @@ public class ConjuntoRegiones {
         return regiones;
     }
 
-    public void exportarCSVsTodasLasRegiones() {
+    public void exportarXlsTodasLasRegiones() {
         // Crear el directorio (carpeta) si no existe
         File folder = new File("CarpetaRegiones");
 
         // Obtener la lista de todas las regiones
         ArrayList<Region> todasLasRegiones = obtenerTodasLasRegiones();
 
-        // Exportar archivos CSV para cada región
+        // Exportar archivos Xls para cada región
         for (int i = 0; i < todasLasRegiones.size(); i++) {
             Region region = todasLasRegiones.get(i);
             String nombreRegion = region.getName();
-            String filePath = "CarpetaRegiones" + File.separator + nombreRegion + ".csv";
+            String filePath = "CarpetaRegiones" + File.separator + nombreRegion + ".xls";
 
-            region.exportarPersonasACSV(filePath);
+            region.exportarPersonasAXls(filePath);
+        }
+    }
+    
+    public void exportarXlsVotantesTodasLasRegiones() {
+        // Crear el directorio (carpeta) si no existe
+        File folder = new File("CarpetaRegionesVotantes");
+
+        // Obtener la lista de todas las regiones
+        ArrayList<Region> todasLasRegiones = obtenerTodasLasRegiones();
+
+        // Exportar archivos Xls para cada región
+        for (int i = 0; i < todasLasRegiones.size(); i++) {
+            Region region = todasLasRegiones.get(i);
+            String nombreRegion = region.getName();
+            String filePath = "CarpetaRegionesVotantes" + File.separator + nombreRegion + ".xls";
+
+            region.exportarVotantesAXls(filePath);
         }
     }
     
@@ -54,16 +71,19 @@ public class ConjuntoRegiones {
         regiones.add(nuevaRegion);
         mapaRegiones.put(nombreRegion, nuevaRegion);
         totalRegiones++;
-        exportarCSVsTodasLasRegiones();
+        exportarXlsTodasLasRegiones();
         return true;
 
     }
     
-     public void agregarRegion(Region region) {
+     public boolean agregarRegion(Region region) {
+        if (mapaRegiones.containsKey(region.getName()))
+            return false;
         regiones.add(region);
         mapaRegiones.put(region.getName(), region);
         totalRegiones++;
-        exportarCSVsTodasLasRegiones();
+        exportarXlsTodasLasRegiones();
+        return true;
 
     }
     
@@ -75,7 +95,7 @@ public class ConjuntoRegiones {
             return;
         }
         region.agregarPersona(rut, nombre, estado,fNac, def);
-        exportarCSVsTodasLasRegiones();
+        exportarXlsTodasLasRegiones();
     }
     
     public int getTotalRegiones() {
@@ -85,19 +105,12 @@ public class ConjuntoRegiones {
     // Métodos para manipular objetos Región
     public void eliminarRegion(String nombreRegion) {
         Region region = mapaRegiones.get(nombreRegion);
-        if (region != null) {
-            regiones.remove(region);
-            mapaRegiones.remove(nombreRegion);
-            totalRegiones--;
-            System.out.println("Se ha eliminado exitosamente la región: " + nombreRegion + ".");
-        } else {
-            System.out.println("No existe la región buscada: " + nombreRegion);
-        }
-        exportarCSVsTodasLasRegiones();
-
+        regiones.remove(region);
+        mapaRegiones.remove(nombreRegion);
+        totalRegiones--;
     }
 
-    public void cargarCSVsDesdeCarpeta() {
+    public void cargarXlsDesdeCarpeta() {
         File folder = new File("CarpetaRegiones");
 
         if (!folder.exists() || !folder.isDirectory()) {
@@ -113,25 +126,62 @@ public class ConjuntoRegiones {
         }
 
         for (File file : files) {
-            if (file.isFile() && file.getName().endsWith(".csv")) {
-                String nombreRegion = file.getName().replace(".csv", "");
-                // Crea una nueva región con el nombre obtenido del nombre del archivo CSV
+            if (file.isFile() && file.getName().endsWith(".xls")) {
+                String nombreRegion = file.getName().replace(".xls", "");
+                // Crea una nueva región con el nombre obtenido del nombre del archivo Xls
                 Region region = new Region(nombreRegion);
                 System.out.println("Creando región: " + nombreRegion);
 
                 try {
-                    // Llama al método cargarPersonasDesdeCSV de la región para cargar los datos
-                    region.cargarPersonasDesdeCSV(file.getPath());
+                    // Llama al método cargarPersonasDesdeXls de la región para cargar los datos
+                    region.cargarPersonasDesdeXls(file.getPath());
                     // Agrega la región al conjunto de regiones
                     agregarRegion(region);
                     System.out.println("Se cargaron los datos del archivo " + file.getName() + " en la región " + nombreRegion);
                 } catch (IOException e) {
-                    System.err.println("Error al cargar el archivo CSV: " + file.getName());
+                    System.err.println("Error al cargar el archivo Xls: " + file.getName());
                     e.printStackTrace();
                 }
             }
        }
    }
+    
+    public void cargarVotantesXlsDesdeCarpeta() {
+        File folder = new File("CarpetaRegionesVotantes");
+
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.err.println("La carpeta especificada no existe.");
+            return;
+        }
+
+        File[] files = folder.listFiles();
+
+        if (files == null || files.length == 0) {
+            System.err.println("La carpeta está vacía.");
+            return;
+        }
+
+        for (File file : files) {
+            if (file.isFile() && file.getName().endsWith(".xls")) {
+                String nombreRegion = file.getName().replace(".xls", "");
+                // Crea una nueva región con el nombre obtenido del nombre del archivo Xls
+                Region region = buscarRegion(nombreRegion);
+                
+
+                try {
+                    // Llama al método cargarPersonasDesdeXls de la región para cargar los datos
+                    region.cargarVotantesDesdeXls(file.getPath());
+                    // Agrega la región al conjunto de regiones
+                    System.out.println("Se cargaron los datos del archivo " + file.getName() + " en la región " + nombreRegion);
+                } catch (IOException e) {
+                    System.err.println("Error al cargar el archivo Xls: " + file.getName());
+                    e.printStackTrace();
+                }
+            }
+       }
+   }
+    
+    
 
     
     public void mostrarRegiones() {
@@ -151,6 +201,8 @@ public class ConjuntoRegiones {
         }
     }
     
+
+    
     public Persona eliminarPersona(String r){
         Persona persona;
         for(int i = 0; i < regiones.size(); i++){
@@ -159,7 +211,7 @@ public class ConjuntoRegiones {
             {
                 persona = aux.obtenerPersona(r);
                 aux.eliminarPersona(persona.getRut());
-                exportarCSVsTodasLasRegiones();
+                exportarXlsTodasLasRegiones();
                 return persona;
             }
                 
@@ -174,7 +226,7 @@ public class ConjuntoRegiones {
         {
             persona = aux.obtenerPersona(r);
             aux.eliminarPersona(persona.getRut());
-            exportarCSVsTodasLasRegiones();
+            exportarXlsTodasLasRegiones();
             return aux.obtenerPersona(r);
         }
                 
